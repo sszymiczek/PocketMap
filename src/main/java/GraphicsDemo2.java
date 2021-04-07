@@ -12,9 +12,9 @@ public class GraphicsDemo2 extends JFrame {
     private static int SQUARE_WIDTH = 50;
 
     private Random random = new Random();
-    private HashMap<String, ImageIcon> mapsOfIcons= new HashMap<>();
+    private HashMap<String, ImageIcon> mapsOfIcons = new HashMap<>();
 
-    public GraphicsDemo2(){
+    public GraphicsDemo2() {
         loadIcons();
         this.setVisible(true);
         jPanel = fillWithSquares(2000, 2000, jPanel);
@@ -23,7 +23,7 @@ public class GraphicsDemo2 extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public JPanel fillWithSquares(int xPixels, int yPixels, JPanel panel1){
+    public JPanel fillWithSquares(int xPixels, int yPixels, JPanel panel1) {
         int maxX = (int) xPixels / SQUARE_WIDTH;
         int maxY = (int) yPixels / SQUARE_WIDTH;
 
@@ -35,7 +35,7 @@ public class GraphicsDemo2 extends JFrame {
         return panel1;
     }
 
-    public JButton paintedButton(Icon icon, int x, int y){
+    public JButton paintedButton(Icon icon, int x, int y) {
         JButton button = new JButton();
         button.setIcon(icon);
         button.setOpaque(true);
@@ -53,7 +53,7 @@ public class GraphicsDemo2 extends JFrame {
         return button;
     }
 
-    public ImageIcon randomIcon(){
+    public ImageIcon randomIcon() {
         int rnd = random.nextInt(4);
 
         switch (rnd) {
@@ -70,17 +70,24 @@ public class GraphicsDemo2 extends JFrame {
                 return this.mapsOfIcons.get("yellow");
             }
             default -> {
-                return this.mapsOfIcons.get("blue");
+                return this.mapsOfIcons.get("black");
             }
         }
     }
 
-    public void loadIcons(){
+    public void loadIcons() {
         this.mapsOfIcons.clear();
 
-        this.mapsOfIcons.put("green", new ImageIcon("src/main/resources/0.png"));
-        this.mapsOfIcons.put("red", new ImageIcon("src/main/resources/1.png"));
-        this.mapsOfIcons.put("blue", new ImageIcon("src/main/resources/2.png"));
-        this.mapsOfIcons.put("yellow", new ImageIcon("src/main/resources/3.png"));
+        ImageIcon green = new ImageIcon("src/main/resources/green.png");
+        ImageIcon red = new ImageIcon("src/main/resources/red.png");
+        ImageIcon blue = new ImageIcon("src/main/resources/blue.png");
+        ImageIcon yellow = new ImageIcon("src/main/resources/yellow.png");
+        ImageIcon black = new ImageIcon("src/main/resources/black.png");
+
+        this.mapsOfIcons.put("green", green);
+        this.mapsOfIcons.put("red", red);
+        this.mapsOfIcons.put("blue", blue);
+        this.mapsOfIcons.put("yellow", yellow);
+        this.mapsOfIcons.put("black", black);
     }
 }
