@@ -6,6 +6,6 @@ public class Main {
 
 
     public static void main(String[] args) {
-        GraphicsDemo2 test = new GraphicsDemo2();
+        GraphicsDemo test = new GraphicsDemo();
     }
 }

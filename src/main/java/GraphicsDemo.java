@@ -7,14 +7,14 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Random;
 
-public class GraphicsDemo2 extends JFrame {
+public class GraphicsDemo extends JFrame {
     private JPanel jPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
     private static int SQUARE_WIDTH = 50;
 
     private Random random = new Random();
     private HashMap<String, ImageIcon> mapsOfIcons = new HashMap<>();
 
-    public GraphicsDemo2() {
+    public GraphicsDemo() {
         loadIcons();
         this.setVisible(true);
         jPanel = fillWithSquares(2000, 2000, jPanel);
@@ -23,16 +23,16 @@ public class GraphicsDemo2 extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public JPanel fillWithSquares(int xPixels, int yPixels, JPanel panel1) {
+    public JPanel fillWithSquares(int xPixels, int yPixels, JPanel panel) {
         int maxX = (int) xPixels / SQUARE_WIDTH;
         int maxY = (int) yPixels / SQUARE_WIDTH;
 
         for (int i = 0; i < maxX; i++) {
             for (int j = 0; j < maxY; j++) {
-                panel1.add(paintedButton(randomIcon(), i, j));
+                panel.add(paintedButton(randomIcon(), i, j));
             }
         }
-        return panel1;
+        return panel;
     }
 
     public JButton paintedButton(Icon icon, int x, int y) {
