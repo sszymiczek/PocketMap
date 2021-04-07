@@ -2,9 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.Random;
 
 public class GraphicsDemo2 extends JFrame {
@@ -67,12 +67,30 @@ public class GraphicsDemo2 extends JFrame {
 
     }
 
+    public HashMap<String, ImageIcon> loadIcon(){
+        HashMap<String, ImageIcon> mapsOfIcons= new HashMap<>();
+
+        ImageIcon green = new ImageIcon(String.valueOf(Paths.get(System.getProperty("user.home"),"icons", "0.png")));
+        ImageIcon red = new ImageIcon(String.valueOf(Paths.get(System.getProperty("user.home"),"icons", "1.png")));
+        ImageIcon blue = new ImageIcon(String.valueOf(Paths.get(System.getProperty("user.home"),"icons", "2.png")));
+        ImageIcon yellow = new ImageIcon(String.valueOf(Paths.get(System.getProperty("user.home"),"icons", "4.png")));
+
+
+        mapsOfIcons.put("green", green);
+        mapsOfIcons.put("red", red);
+        mapsOfIcons.put("blue", blue);
+        mapsOfIcons.put("yellow", yellow);
+
+        return mapsOfIcons;
+    }
+
     public GraphicsDemo2(){
-        this.setSize(500, 500);
         this.setVisible(true);
         panel1 = fillWithSquares(2000, 2000, panel1);
         this.add(panel1);
+        this.setSize(500, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
     public static void main(String[] args) {
