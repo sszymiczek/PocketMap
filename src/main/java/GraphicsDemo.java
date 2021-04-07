@@ -17,10 +17,14 @@ public class GraphicsDemo extends JFrame {
     public GraphicsDemo() {
         loadIcons();
         this.setVisible(true);
+        jPanel.setLayout(null);
         jPanel = fillWithSquares(2000, 2000, jPanel);
         this.add(jPanel);
         this.setSize(500, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Insets insets = this.getInsets();
+        this.setSize(300 + insets.left + insets.right, 125 + insets.top + insets.bottom);
+
     }
 
     public JPanel fillWithSquares(int xPixels, int yPixels, JPanel panel) {
@@ -29,7 +33,12 @@ public class GraphicsDemo extends JFrame {
 
         for (int i = 0; i < maxX; i++) {
             for (int j = 0; j < maxY; j++) {
-                panel.add(paintedButton(randomIcon(), i, j));
+                JButton button = paintedButton(randomIcon(), i, j);
+                panel.add(button);
+                Insets insets = panel.getInsets();
+                Dimension size = button.getPreferredSize();
+                button.setBounds(i * SQUARE_WIDTH + insets.left, j * SQUARE_WIDTH + insets.top,
+                        size.width, size.height);
             }
         }
         return panel;
@@ -49,6 +58,7 @@ public class GraphicsDemo extends JFrame {
         button.setPreferredSize(new Dimension(SQUARE_WIDTH, SQUARE_WIDTH));
         button.setBorder(null);
         button.setVisible(true);
+
 
         return button;
     }
