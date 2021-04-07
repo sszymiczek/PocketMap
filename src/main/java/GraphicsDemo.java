@@ -2,16 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Random;
 
 public class GraphicsDemo extends JFrame {
-    private JPanel jPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-//    private JPanel jPanel = new JPanel(new GridLayout(3, 4, 0, 0));
+    private JPanel jPanelMap = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+    private JPanel jPanelArrows = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+
     private static int SQUARE_WIDTH = 50;
-    private static int ARROW_SIZE = 50;
+    private static int ARROW_SIZE = 75;
 
     private Random random = new Random();
     private HashMap<String, ImageIcon> mapsOfIcons = new HashMap<>();
@@ -19,28 +18,28 @@ public class GraphicsDemo extends JFrame {
     public GraphicsDemo() {
         loadIcons();
 
-//        jPanel.setLayout(null);
-//        jPanel = fillWithSquares(2000, 2000, jPanel);
-//        this.setVisible(true);
-//        this.add(jPanel);
-//        this.setSize(500, 500);
-//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        Insets insets = this.getInsets();
-//        this.setSize(300 + insets.left + insets.right, 125 + insets.top + insets.bottom);
-
+        jPanelMap.setLayout(null);
+        jPanelMap = fillWithSquares(2000, 2000, jPanelMap);
         this.setVisible(true);
-        jPanel.setVisible(true);
-        jPanel.setLayout(null);
-
-        jPanel = arrowsToNavigate(jPanel);
-        this.add(jPanel);
-
+        this.add(jPanelMap);
         this.setSize(500, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         Insets insets = this.getInsets();
-        this.setSize(3 * ARROW_SIZE + insets.left + insets.right, 3 * ARROW_SIZE + insets.top + insets.bottom);
-
+        this.setSize(300 + insets.left + insets.right, 125 + insets.top + insets.bottom);
+//
+//        this.setVisible(true);
+//        jPanelArrows.setVisible(true);
+//        jPanelArrows.setLayout(null);
+//
+//        jPanelArrows = arrowsToNavigate(jPanelArrows);
+//        this.setResizable(false);
+//        this.add(jPanelArrows);
+//
+//        this.setSize(500, 500);
+//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//        Insets insets = this.getInsets();
+//        this.setSize(3 * ARROW_SIZE + insets.left + insets.right, 3 * ARROW_SIZE + insets.top + insets.bottom);
     }
 
     public JPanel arrowsToNavigate(JPanel panel) {
@@ -64,10 +63,10 @@ public class GraphicsDemo extends JFrame {
     public ImageIcon chooseIconToNavigate(int i){
         ImageIcon iconReturned = null;
         switch (i){
-            case 0 -> iconReturned = new ImageIcon("src/main/resources/black.png");
-            case 1 -> iconReturned = new ImageIcon("src/main/resources/green.png");
-            case 2 -> iconReturned = new ImageIcon("src/main/resources/blue.png");
-            case 3 -> iconReturned = new ImageIcon("src/main/resources/yellow.png");
+            case 0 -> iconReturned = new ImageIcon("src/main/resources/iconsArrows/up.png");
+            case 1 -> iconReturned = new ImageIcon("src/main/resources/iconsArrows/left.png");
+            case 2 -> iconReturned = new ImageIcon("src/main/resources/iconsArrows/right.png");
+            case 3 -> iconReturned = new ImageIcon("src/main/resources/iconsArrows/down.png");
         }
         return iconReturned;
     }
@@ -144,11 +143,11 @@ public class GraphicsDemo extends JFrame {
     public void loadIcons() {
         this.mapsOfIcons.clear();
 
-        ImageIcon green = new ImageIcon("src/main/resources/green.png");
-        ImageIcon red = new ImageIcon("src/main/resources/red.png");
-        ImageIcon blue = new ImageIcon("src/main/resources/blue.png");
-        ImageIcon yellow = new ImageIcon("src/main/resources/yellow.png");
-        ImageIcon black = new ImageIcon("src/main/resources/black.png");
+        ImageIcon green = new ImageIcon("src/main/resources/iconsMap/green.png");
+        ImageIcon red = new ImageIcon("src/main/resources/iconsMap/red.png");
+        ImageIcon blue = new ImageIcon("src/main/resources/iconsMap/blue.png");
+        ImageIcon yellow = new ImageIcon("src/main/resources/iconsMap/yellow.png");
+        ImageIcon black = new ImageIcon("src/main/resources/iconsMap/black.png");
 
         this.mapsOfIcons.put("green", green);
         this.mapsOfIcons.put("red", red);
