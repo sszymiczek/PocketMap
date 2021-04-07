@@ -9,22 +9,78 @@ import java.util.Random;
 
 public class GraphicsDemo extends JFrame {
     private JPanel jPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+//    private JPanel jPanel = new JPanel(new GridLayout(3, 4, 0, 0));
     private static int SQUARE_WIDTH = 50;
+    private static int ARROW_SIZE = 50;
 
     private Random random = new Random();
     private HashMap<String, ImageIcon> mapsOfIcons = new HashMap<>();
 
     public GraphicsDemo() {
         loadIcons();
+
+//        jPanel.setLayout(null);
+//        jPanel = fillWithSquares(2000, 2000, jPanel);
+//        this.setVisible(true);
+//        this.add(jPanel);
+//        this.setSize(500, 500);
+//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        Insets insets = this.getInsets();
+//        this.setSize(300 + insets.left + insets.right, 125 + insets.top + insets.bottom);
+
         this.setVisible(true);
+        jPanel.setVisible(true);
         jPanel.setLayout(null);
-        jPanel = fillWithSquares(2000, 2000, jPanel);
+
+        jPanel = arrowsToNavigate(jPanel);
         this.add(jPanel);
+
         this.setSize(500, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Insets insets = this.getInsets();
-        this.setSize(300 + insets.left + insets.right, 125 + insets.top + insets.bottom);
 
+        Insets insets = this.getInsets();
+        this.setSize(3 * ARROW_SIZE + insets.left + insets.right, 3 * ARROW_SIZE + insets.top + insets.bottom);
+
+    }
+
+    public JPanel arrowsToNavigate(JPanel panel) {
+        panel.setBackground(null);
+        panel.setVisible(true);
+        panel.setSize(new Dimension(100, 100));
+        Insets insets = panel.getInsets();
+
+        for (int i = 0; i < 4; i++) {
+            JButton button = new JButton();
+            button.setPreferredSize(new Dimension(ARROW_SIZE, ARROW_SIZE));
+            button.setIcon(chooseIconToNavigate(i));
+            button = positionOfArrows(button, insets, i);
+            button.setVisible(true);
+            panel.add(button);
+        }
+
+        return panel;
+    }
+
+    public ImageIcon chooseIconToNavigate(int i){
+        ImageIcon iconReturned = null;
+        switch (i){
+            case 0 -> iconReturned = new ImageIcon("src/main/resources/black.png");
+            case 1 -> iconReturned = new ImageIcon("src/main/resources/green.png");
+            case 2 -> iconReturned = new ImageIcon("src/main/resources/blue.png");
+            case 3 -> iconReturned = new ImageIcon("src/main/resources/yellow.png");
+        }
+        return iconReturned;
+    }
+
+    public JButton positionOfArrows(JButton button, Insets insets, int i){
+        Dimension size = button.getPreferredSize();
+        switch (i){
+            case 0 -> button.setBounds(ARROW_SIZE + insets.left, insets.top, size.width, size.height);
+            case 1 -> button.setBounds( insets.left, ARROW_SIZE + insets.top, size.width, size.height);
+            case 2 -> button.setBounds( 2 * ARROW_SIZE + insets.left, ARROW_SIZE + insets.top, size.width, size.height);
+            case 3 -> button.setBounds( ARROW_SIZE + insets.left, 2 * ARROW_SIZE + insets.top, size.width, size.height);
+        }
+        return button;
     }
 
     public JPanel fillWithSquares(int xPixels, int yPixels, JPanel panel) {
