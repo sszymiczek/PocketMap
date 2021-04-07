@@ -78,15 +78,9 @@ public class GraphicsDemo2 extends JFrame {
     public void loadIcons(){
         this.mapsOfIcons.clear();
 
-
-        ImageIcon green = new ImageIcon("src/main/resources/0.png");
-        ImageIcon red = new ImageIcon("src/main/resources/1.png");
-        ImageIcon blue = new ImageIcon("src/main/resources/2.png");
-        ImageIcon yellow = new ImageIcon("src/main/resources/3.png");
-
-        this.mapsOfIcons.put("green", green);
-        this.mapsOfIcons.put("red", red);
-        this.mapsOfIcons.put("blue", blue);
-        this.mapsOfIcons.put("yellow", yellow);
+        this.mapsOfIcons.put("green", new ImageIcon("src/main/resources/0.png"));
+        this.mapsOfIcons.put("red", new ImageIcon("src/main/resources/1.png"));
+        this.mapsOfIcons.put("blue", new ImageIcon("src/main/resources/2.png"));
+        this.mapsOfIcons.put("yellow", new ImageIcon("src/main/resources/3.png"));
     }
 }
