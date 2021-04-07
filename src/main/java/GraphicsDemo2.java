@@ -49,7 +49,6 @@ public class GraphicsDemo2 extends JFrame {
         button.setPreferredSize(new Dimension(SQUARE_WIDTH, SQUARE_WIDTH));
         button.setBorder(null);
         button.setVisible(true);
-        System.out.println(button);
 
         return button;
     }
@@ -79,10 +78,11 @@ public class GraphicsDemo2 extends JFrame {
     public void loadIcons(){
         this.mapsOfIcons.clear();
 
-        ImageIcon green = new ImageIcon(String.valueOf(Paths.get(System.getProperty("user.home"),"icons", "0.png")));
-        ImageIcon red = new ImageIcon(String.valueOf(Paths.get(System.getProperty("user.home"),"icons", "1.png")));
-        ImageIcon blue = new ImageIcon(String.valueOf(Paths.get(System.getProperty("user.home"),"icons", "2.png")));
-        ImageIcon yellow = new ImageIcon(String.valueOf(Paths.get(System.getProperty("user.home"),"icons", "4.png")));
+
+        ImageIcon green = new ImageIcon("src/main/resources/0.png");
+        ImageIcon red = new ImageIcon("src/main/resources/1.png");
+        ImageIcon blue = new ImageIcon("src/main/resources/2.png");
+        ImageIcon yellow = new ImageIcon("src/main/resources/3.png");
 
         this.mapsOfIcons.put("green", green);
         this.mapsOfIcons.put("red", red);
