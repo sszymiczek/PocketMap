@@ -6,8 +6,11 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class GraphicsDemo extends JFrame {
-    private JPanel jPanelMap = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-    private JPanel jPanelArrows = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+//    private JPanel jPanelMap = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+//    private JPanel jPanelArrows = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+
+    private JPanel jPanelMap;
+    private JPanel jPanelArrows;
 
     private static int SQUARE_WIDTH = 50;
     private static int ARROW_SIZE = 75;
@@ -18,15 +21,25 @@ public class GraphicsDemo extends JFrame {
     public GraphicsDemo() {
         loadIcons();
 
-        jPanelMap.setLayout(null);
-        jPanelMap = fillWithSquares(2000, 2000, jPanelMap);
+        //jPanelMap = mainMapCreate();
+        jPanelArrows = arrowPanelCreate();
+
         this.setVisible(true);
-        this.add(jPanelMap);
-        this.setSize(500, 500);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //this.add(jPanelMap);
+        this.add(jPanelArrows, BorderLayout.CENTER);
+        //this.setSize(500, 500);
         Insets insets = this.getInsets();
-        this.setSize(300 + insets.left + insets.right, 125 + insets.top + insets.bottom);
-//
+        this.setSize(300 + insets.left + insets.right, 300 + insets.top + insets.bottom);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        jPanelMap.setLayout(null);
+//        jPanelMap = fillWithSquares(2000, 2000, jPanelMap);
+//        this.setVisible(true);
+//        this.add(jPanelMap);
+//        this.setSize(500, 500);
+//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        Insets insets = this.getInsets();
+//        this.setSize(300 + insets.left + insets.right, 125 + insets.top + insets.bottom);
+
 //        this.setVisible(true);
 //        jPanelArrows.setVisible(true);
 //        jPanelArrows.setLayout(null);
@@ -40,11 +53,47 @@ public class GraphicsDemo extends JFrame {
 //
 //        Insets insets = this.getInsets();
 //        this.setSize(3 * ARROW_SIZE + insets.left + insets.right, 3 * ARROW_SIZE + insets.top + insets.bottom);
+
+    }
+
+    public JPanel mainMapCreate(){
+        //jPanelMap = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        //jPanelMap.setLayout(null);
+        JPanel jPanelMap = new JPanel(){
+            @Override
+            public boolean isOptimizedDrawingEnabled() {
+                return false;
+            }
+        };
+        jPanelMap.setLayout(new OverlayLayout(jPanelMap));
+        jPanelMap = fillWithSquares(2000, 2000, jPanelMap);
+        jPanelArrows = arrowPanelCreate();
+//        jPanelArrows.setAlignmentX(0.1f);
+//        jPanelArrows.setAlignmentY(0.1f);
+        jPanelMap.add(jPanelArrows);
+
+        return jPanelMap;
+    }
+
+    public JPanel arrowPanelCreate(){
+        jPanelArrows = new JPanel();
+        jPanelArrows.setLayout(null);
+        jPanelArrows.setOpaque(false);
+
+        jPanelArrows.setVisible(true);
+        //jPanelArrows.setMaximumSize(new Dimension(3 * ARROW_SIZE, 3 * ARROW_SIZE));
+        jPanelArrows = arrowsToNavigate(jPanelArrows);
+        //jPanelArrows.setLayout(null);
+        //jPanelArrows.setLayout(new OverlayLayout(jPanelArrows));
+        //jPanelArrows.add(jPanelMap);
+        //this.setResizable(false);
+
+        return jPanelArrows;
     }
 
     public JPanel arrowsToNavigate(JPanel panel) {
         panel.setBackground(null);
-        panel.setVisible(true);
+        //panel.setVisible(true);
         panel.setSize(new Dimension(100, 100));
         Insets insets = panel.getInsets();
 
