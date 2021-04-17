@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
-import java.util.Random;
 
 public class MapPanel extends JFrame implements ActionListener{
 //    private JPanel jPanelMap = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -12,9 +11,9 @@ public class MapPanel extends JFrame implements ActionListener{
     private JPanel jPanelMap;
     private JPanel jPanelArrows;
     private HashMap<String, ImageIcon> mapsOfIcons = new HashMap<>();
-    private Random random = new Random();
+    private MyRandom random = new MyRandom();
 
-    private final int SQUARE_WIDTH = 5;
+    private final int SQUARE_WIDTH = 10;
     private final int ARROW_SIZE = 75;
     private final int FRAME_SIZE = 1000;
     private final int MAP_SIZE = 2000;
@@ -75,8 +74,8 @@ public class MapPanel extends JFrame implements ActionListener{
     }
 
     public ImageIcon getRandomIcon(int x, int y) {
-        random.setSeed(2137*x+420*y);
-        int rnd = random.nextInt(4);
+        random.setNLehmerSeed(2137*x+420*y);
+        int rnd = Math.abs(random.nextLehmer32(4));
 
         switch (rnd) {
             case 0 -> {
