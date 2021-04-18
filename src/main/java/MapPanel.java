@@ -13,13 +13,14 @@ public class MapPanel extends JFrame implements ActionListener{
     private HashMap<String, ImageIcon> mapsOfIcons = new HashMap<>();
     private MyRandom random = new MyRandom();
 
-    private final int SQUARE_WIDTH = 10;
+    private final int SQUARE_WIDTH = 25;
     private final int ARROW_SIZE = 75;
-    private final int FRAME_SIZE = 1000;
-    private final int MAP_SIZE = 2000;
+    private final int FRAME_SIZE = 500;
+    private final int MAP_SIZE_X = 500;
+    private final int MAP_SIZE_Y = 500;
 
-    private int mainX = 0;
-    private int mainY = 0;
+    private int startingX = -5;
+    private int startingY = 0;
 
     public MapPanel() {
         Insets insets = this.getInsets();
@@ -27,33 +28,41 @@ public class MapPanel extends JFrame implements ActionListener{
         this.loadIcons();
         this.setVisible(true);
 
-        jPanelMap = mainMapCreate();
+        mainMapCreate();
 
         this.add(jPanelMap, BorderLayout.CENTER);
         this.setSize(FRAME_SIZE + insets.left + insets.right, FRAME_SIZE + insets.top + insets.bottom);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public JPanel mainMapCreate(){
+    public void mainMapCreate(){
         jPanelMap = new JPanel();
         jPanelMap.setLayout(null);
-        return generateMap(MAP_SIZE, MAP_SIZE, jPanelMap);
+        generateMap();
     }
 
-    public JPanel generateMap(int xPixels, int yPixels, JPanel panel) {
-        int maxX = (int) xPixels / SQUARE_WIDTH;
-        int maxY = (int) yPixels / SQUARE_WIDTH;
-
-        for (int i = 0; i < maxX; i++) {
-            for (int j = 0; j < maxY; j++) {
-                JButton button = getTile(i, j);
-                panel.add(button);
-                Insets insets = panel.getInsets();
-                Dimension size = button.getPreferredSize();
-                button.setBounds(i * SQUARE_WIDTH + insets.left, j * SQUARE_WIDTH + insets.top, size.width, size.height);
+    public void generateMap() {
+        for (int i = 0; i < getMaxX(); i++) {
+            for (int j = getMaxY(); j >= 0; j--) {
+                generateNewTileAtCoordinates(i, j);
             }
         }
-        return panel;
+    }
+
+    private int getMaxX() {
+        return MAP_SIZE_X / SQUARE_WIDTH;
+    }
+
+    private int getMaxY() {
+        return MAP_SIZE_Y / SQUARE_WIDTH;
+    }
+
+    private void generateNewTileAtCoordinates(int x, int y) {
+        JButton tile = getTile(startingX + x, startingY + y);
+        jPanelMap.add(tile);
+        Insets insets = jPanelMap.getInsets();
+        Dimension tileSize = tile.getPreferredSize();
+        tile.setBounds(x * SQUARE_WIDTH + insets.left, y * SQUARE_WIDTH + insets.top, tileSize.width, tileSize.height);
     }
 
     public JButton getTile(int x, int y) {
@@ -75,7 +84,7 @@ public class MapPanel extends JFrame implements ActionListener{
 
     public ImageIcon getRandomIcon(int x, int y) {
         random.setNLehmerSeed(2137*x+420*y);
-        int rnd = Math.abs(random.nextLehmer32(4));
+        int rnd = random.nextLehmer32(4);
 
         switch (rnd) {
             case 0 -> {
@@ -114,6 +123,27 @@ public class MapPanel extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+    }
+
+    public void moveMapUp() {
+        Component[] components = this.jPanelMap.getComponents();
+
+        for (int i = 0; i < components.length; i++) {
+            JButton button = (JButton) components[i];
+            if (button.getY() == MAP_SIZE_Y){//pixels
+                jPanelMap.remove(components[i]);
+            } else {
+                Point point = new Point(button.getX(), button.getY() + SQUARE_WIDTH);
+                button.setLocation(point);
+                components[i] = button;
+            }
+        }
+
+        startingY++;
+        for (int i = 0; i < getMaxX(); i++) {
+            generateNewTileAtCoordinates(i, 0);
+        }
 
     }
 

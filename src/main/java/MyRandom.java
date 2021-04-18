@@ -7,7 +7,7 @@ public class MyRandom {
         int m1 = (int)((tmp >> 32) ^ tmp);
         tmp = (long)m1 * 0x12fad5c9;
         int m2 = (int)((tmp >> 32) ^ tmp);
-        return m2;
+        return Math.abs(m2);
     }
 
     public int nextLehmer32(int bound){
