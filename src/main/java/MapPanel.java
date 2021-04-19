@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 
-public class MapPanel extends JFrame implements ActionListener{
+public class MapPanel extends JFrame implements ActionListener, Movable{
 //    private JPanel jPanelMap = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 //    private JPanel jPanelArrows = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
@@ -141,15 +141,14 @@ public class MapPanel extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
 
-    public void moveMapUp() {
+    public void moveUp() {
         Component[] components = this.jPanelMap.getComponents();
 
         for (int i = 0; i < components.length; i++) {
             JButton button = (JButton) components[i];
-            if (button.getY() == MAP_SIZE_Y){//pixels
+            if (button.getY() == MAP_SIZE_Y){
                 jPanelMap.remove(components[i]);
             } else {
                 Point point = new Point(button.getX(), button.getY() + SQUARE_WIDTH);
@@ -162,7 +161,26 @@ public class MapPanel extends JFrame implements ActionListener{
         for (int i = 0; i < getMaxX(); i++) {
             generateNewTileAtCoordinates(i, 0);
         }
+    }
 
+    public void moveDown() {
+        Component[] components = this.jPanelMap.getComponents();
+
+        for (int i = 0; i < components.length; i++) {
+            JButton button = (JButton) components[i];
+            if (button.getY() == SQUARE_WIDTH) {
+                jPanelMap.remove(components[i]);
+            } else {
+                Point point = new Point(button.getX(), button.getY() - SQUARE_WIDTH);
+                button.setLocation(point);
+                components[i] = button;
+            }
+
+            startingY--;
+            for (int j = 0; j < getMaxX(); j++) {
+                generateNewTileAtCoordinates(i, MAP_SIZE_Y);
+            }
+        }
     }
 
     /* key controls for later

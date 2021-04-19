@@ -8,7 +8,7 @@ public class MainFrame extends JFrame {
     private HashMap<String, ImageIcon> mapsOfIcons = new HashMap<>();
     private MyRandom random = new MyRandom();
     private ArrowPanel arrowPanel = new ArrowPanel();
-    private MapPanel mapPanel = new MapPanel();
+    public MapPanel mapPanel = new MapPanel();//PRIVATE
 
     private final int FRAME_SIZE = 500;
     private int ARROW_SIZE = arrowPanel.ARROW_SIZE;
@@ -28,7 +28,7 @@ public class MainFrame extends JFrame {
     }
 
     public JSplitPane createSplitPane(){
-        jPanelArrows = arrowPanel.createArrowPanel();
+        jPanelArrows = arrowPanel.createArrowPanel(mapPanel);
         jPanelMap = mapPanel.mainMapCreate();
 
         JPanel pusty = new JPanel();

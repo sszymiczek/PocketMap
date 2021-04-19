@@ -4,6 +4,7 @@ import java.awt.*;
 public class ArrowPanel{
     //private JPanel jPanelArrows;
     public final int ARROW_SIZE = 75;
+    private Movable panel;
 
 //    public static void main(String[] args) {
 //        ArrowPanel arrowPanel = new ArrowPanel();
@@ -15,7 +16,7 @@ public class ArrowPanel{
 //        frame.setVisible(true);
 //    }
 
-    public JPanel createArrowPanel() {
+    public JPanel createArrowPanel(Movable panel) {
         JPanel jPanelArrows = new JPanel();
         jPanelArrows.setBackground(null);
         jPanelArrows.setVisible(true);
@@ -24,6 +25,8 @@ public class ArrowPanel{
         jPanelArrows.setMaximumSize(new Dimension(3 * ARROW_SIZE, 3 * ARROW_SIZE));
         jPanelArrows.setMinimumSize(new Dimension(3 * ARROW_SIZE, 3 * ARROW_SIZE));
         jPanelArrows = arrowsToNavigate(jPanelArrows);
+
+        this.panel = panel;
 
 //        jPanelArrows.setAlignmentX(0.5f);
 //        jPanelArrows.setAlignmentX(0.8f);
