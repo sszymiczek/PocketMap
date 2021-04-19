@@ -1,22 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ArrowPanel{
-    //private JPanel jPanelArrows;
     public final int ARROW_SIZE = 75;
-    private Movable panel;
+    private Movable moveMainPanel;
 
-//    public static void main(String[] args) {
-//        ArrowPanel arrowPanel = new ArrowPanel();
-//        JPanel panel = arrowPanel.createArrowPanel();
-//        JFrame frame = new JFrame();
-//        frame.add(panel);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setSize(new Dimension(225, 250));
-//        frame.setVisible(true);
-//    }
 
-    public JPanel createArrowPanel(Movable panel) {
+    public JPanel createArrowPanel(Movable moveMainPanel) {
         JPanel jPanelArrows = new JPanel();
         jPanelArrows.setBackground(null);
         jPanelArrows.setVisible(true);
@@ -26,10 +18,8 @@ public class ArrowPanel{
         jPanelArrows.setMinimumSize(new Dimension(3 * ARROW_SIZE, 3 * ARROW_SIZE));
         jPanelArrows = arrowsToNavigate(jPanelArrows);
 
-        this.panel = panel;
+        this.moveMainPanel = moveMainPanel;
 
-//        jPanelArrows.setAlignmentX(0.5f);
-//        jPanelArrows.setAlignmentX(0.8f);
         return jPanelArrows;
     }
 
@@ -41,6 +31,7 @@ public class ArrowPanel{
             button.setPreferredSize(new Dimension(ARROW_SIZE, ARROW_SIZE));
             button.setIcon(chooseIconToNavigate(i));
             button = positionOfArrows(button, insets, i);
+            button = createActionListeners(button, i);
             button.setVisible(true);
             panel.add(button);
         }
@@ -66,6 +57,36 @@ public class ArrowPanel{
             case 1 -> button.setBounds( insets.left, ARROW_SIZE + insets.top, size.width, size.height);
             case 2 -> button.setBounds( 2 * ARROW_SIZE + insets.left, ARROW_SIZE + insets.top, size.width, size.height);
             case 3 -> button.setBounds( ARROW_SIZE + insets.left, 2 * ARROW_SIZE + insets.top, size.width, size.height);
+        }
+        return button;
+    }
+
+    public JButton createActionListeners(JButton button, int i){
+        switch (i){
+            case 0 -> button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    moveMainPanel.moveUp();
+                }
+            });
+            case 1 -> button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //moveMainPanel.moveLeft();
+                }
+            });
+            case 2 -> button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    //moveMainPanel.moveRight();
+                }
+            });
+            case 3 -> button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    moveMainPanel.moveDown();
+                }
+            });
         }
         return button;
     }
