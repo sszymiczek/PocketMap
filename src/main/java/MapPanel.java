@@ -12,9 +12,10 @@ public class MapPanel extends JFrame implements ActionListener{
     private JPanel jPanelArrows;
     private HashMap<String, ImageIcon> mapsOfIcons = new HashMap<>();
     private MyRandom random = new MyRandom();
+    private ArrowPanel arrowPanel = new ArrowPanel();
 
     private final int SQUARE_WIDTH = 25;
-    private final int ARROW_SIZE = 75;
+    //private final int ARROW_SIZE = 75;
     private final int FRAME_SIZE = 500;
     private final int MAP_SIZE_X = 500;
     private final int MAP_SIZE_Y = 500;
@@ -22,23 +23,40 @@ public class MapPanel extends JFrame implements ActionListener{
     private int startingX = -5;
     private int startingY = 0;
 
-    public MapPanel() {
-        Insets insets = this.getInsets();
+//    public MapPanel() {
+//        Insets insets = this.getInsets();
+//
+//        this.loadIcons();
+//        this.setVisible(true);
+//        JSplitPane splitPane = createSplitPane();
+//        this.add(splitPane);
+//        this.setSize(FRAME_SIZE + insets.left + insets.right, FRAME_SIZE + insets.top + insets.bottom);
+//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//    }
+//
+//    public JSplitPane createSplitPane(){
+//        jPanelArrows = arrowPanel.createArrowPanel();
+//        mainMapCreate();
+//
+//        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jPanelMap, jPanelArrows);
+//        splitPane.setOneTouchExpandable(true);
+//        splitPane.setDividerLocation(FRAME_SIZE-225);
+//
+//        //Provide minimum sizes for the two components in the split pane
+//        Dimension minimumSize = new Dimension(100, 50);
+//        jPanelMap.setMinimumSize(minimumSize);
+//        jPanelArrows.setMinimumSize(minimumSize);
+//
+//        return splitPane;
+//    }
 
-        this.loadIcons();
-        this.setVisible(true);
-
-        mainMapCreate();
-
-        this.add(jPanelMap, BorderLayout.CENTER);
-        this.setSize(FRAME_SIZE + insets.left + insets.right, FRAME_SIZE + insets.top + insets.bottom);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    public void mainMapCreate(){
+    public JPanel mainMapCreate(){
         jPanelMap = new JPanel();
         jPanelMap.setLayout(null);
+        jPanelMap.setBackground(null);
+        jPanelMap.setVisible(true);
         generateMap();
+        return jPanelMap;
     }
 
     public void generateMap() {
@@ -154,7 +172,7 @@ public class MapPanel extends JFrame implements ActionListener{
         jPanelArrows.setOpaque(false);
 
         jPanelArrows.setVisible(true);
-        //jPanelArrows.setMaximumSize(new Dimension(3 * ARROW_SIZE, 3 * ARROW_SIZE));
+        jPanelArrows.setMaximumSize(new Dimension(3 * ARROW_SIZE, 3 * ARROW_SIZE));
         jPanelArrows = arrowsToNavigate(jPanelArrows);
         //jPanelArrows.setLayout(null);
         //jPanelArrows.setLayout(new OverlayLayout(jPanelArrows));
@@ -202,7 +220,6 @@ public class MapPanel extends JFrame implements ActionListener{
             case 3 -> button.setBounds( ARROW_SIZE + insets.left, 2 * ARROW_SIZE + insets.top, size.width, size.height);
         }
         return button;
-    }
-     */
+    } */
 
 }
