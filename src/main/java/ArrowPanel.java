@@ -72,13 +72,13 @@ public class ArrowPanel{
             case 1 -> button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //moveMainPanel.moveLeft();
+                    moveMainPanel.moveLeft();
                 }
             });
             case 2 -> button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //moveMainPanel.moveRight();
+                    moveMainPanel.moveRight();
                 }
             });
             case 3 -> button.addActionListener(new ActionListener() {

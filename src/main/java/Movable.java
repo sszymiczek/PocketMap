@@ -1,6 +1,6 @@
 public interface Movable {
     void moveUp();
     void moveDown();
-    //void moveRight();
-    //void moveLeft();
+    void moveRight();
+    void moveLeft();
 }
