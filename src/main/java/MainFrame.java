@@ -5,18 +5,17 @@ import java.util.HashMap;
 public class MainFrame extends JFrame {
     private JPanel jPanelMap;
     private JPanel jPanelArrows;
-    private HashMap<String, ImageIcon> mapsOfIcons = new HashMap<>();
-    private MyRandom random = new MyRandom();
+    private JPanel jPanelCoordinates;
     private ArrowPanel arrowPanel = new ArrowPanel();
-    public MapPanel mapPanel = new MapPanel();//PRIVATE
+    private MapPanel mapPanel = new MapPanel();
+    private SaveCoordPanel saveCoordPanel = new SaveCoordPanel();
 
-    private final int FRAME_SIZE = 500;
+    private final int FRAME_SIZE = 700;
     private int ARROW_SIZE = arrowPanel.ARROW_SIZE;
 
 
     public MainFrame() {
         Insets insets = this.getInsets();
-
         mapPanel.loadIcons();
         this.setVisible(true);
         JSplitPane splitPane = createSplitPane();
@@ -30,17 +29,17 @@ public class MainFrame extends JFrame {
     public JSplitPane createSplitPane(){
         jPanelArrows = arrowPanel.createArrowPanel(mapPanel);
         jPanelMap = mapPanel.mainMapCreate();
+        jPanelCoordinates = saveCoordPanel.createCoordPanel();
 
-        JPanel pusty = new JPanel();
-        pusty.setMaximumSize(new Dimension(3 * ARROW_SIZE, 3 * ARROW_SIZE));
-        pusty.setMinimumSize(new Dimension(3 * ARROW_SIZE, 3 * ARROW_SIZE));
+        JPanel opakuj = new JPanel();
+        opakuj.setLayout(null);
+        opakuj.add(jPanelCoordinates);
+        opakuj.add(jPanelArrows);
+        Insets insets = jPanelArrows.getInsets();
+        Dimension size = jPanelArrows.getPreferredSize();
+        jPanelArrows.setBounds(insets.left, insets.top + 70, size.width, size.height);
 
-//        JPanel opakuj = new JPanel();
-//        opakuj.setLayout(new BoxLayout(opakuj, BoxLayout.PAGE_AXIS));
-//        opakuj.add(pusty);
-//        opakuj.add(jPanelArrows, Component.BOTTOM_ALIGNMENT);
-
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jPanelMap, jPanelArrows){
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jPanelMap, opakuj){
             @Override
             public int getDividerLocation(){
                 return this.getWidth() - 3 * ARROW_SIZE;
@@ -50,11 +49,6 @@ public class MainFrame extends JFrame {
         splitPane.setDividerLocation(FRAME_SIZE - 3 * ARROW_SIZE );
         splitPane.setResizeWeight(1.0);
 
-
-        //Provide minimum sizes for the two components in the split pane
-
-        Dimension maximumSize = new Dimension(3 * ARROW_SIZE + 5, FRAME_SIZE);
-        jPanelArrows.setMaximumSize(maximumSize);
         return splitPane;
     }
 

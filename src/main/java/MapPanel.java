@@ -14,7 +14,6 @@ public class MapPanel extends JFrame implements Movable{
     private ArrowPanel arrowPanel = new ArrowPanel();
 
     private final int SQUARE_WIDTH = 100;
-    //private final int ARROW_SIZE = 75;
     private final int FRAME_SIZE = 500;
     private final int MAP_SIZE_X = 600;
     private final int MAP_SIZE_Y = 600;
@@ -146,7 +145,6 @@ public class MapPanel extends JFrame implements Movable{
             generateNewTileAtCoordinates(i, 0);
         }
         removeRedundantTiles();
-        System.out.println(jPanelMap.getComponentCount());
     }
 
     public void moveRight() {
