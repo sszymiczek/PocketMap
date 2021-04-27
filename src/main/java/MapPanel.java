@@ -52,11 +52,29 @@ public class MapPanel extends JFrame implements Movable{
     }
 
     private void generateNewTileAtCoordinates(int x, int y) {
-        JButton tile = getTile(x, y);
-        jPanelMap.add(tile);
+        JButton tile = new JButton();
+
+        tile.setIcon(getRandomIcon(x, y));
+
+        //some jButton casual stuff
+        tile.setOpaque(true);
+        tile.setLocation(getPixelOfCoordinateX(x), getPixelOfCoordinateY(y));
+        tile.setPreferredSize(new Dimension(SQUARE_WIDTH, SQUARE_WIDTH));
+        tile.setBorder(null);
+        tile.setVisible(true);
         Insets insets = jPanelMap.getInsets();
-        Dimension tileSize = tile.getPreferredSize();
-        tile.setBounds(getPixelOfCoordinateX(x) + insets.left, getPixelOfCoordinateY(y) + insets.top, tileSize.width, tileSize.height);
+        Dimension buttonSize = tile.getPreferredSize();
+        tile.setBounds(getPixelOfCoordinateX(x) + insets.left, getPixelOfCoordinateY(y) + insets.top, buttonSize.width, buttonSize.height);
+        //
+        tile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(tile);
+                System.out.println(startingCoordinateX + " " + startingCoordinateY);
+            }
+        });
+
+        jPanelMap.add(tile);
     }
 
     private int getPixelOfCoordinateY(int y) {
@@ -65,27 +83,6 @@ public class MapPanel extends JFrame implements Movable{
 
     private int getPixelOfCoordinateX(int x) {
         return x * SQUARE_WIDTH;
-    }
-
-    public JButton getTile(int x, int y) {
-        JButton button = new JButton();
-
-        button.setIcon(getRandomIcon(x, y));
-
-        button.setOpaque(true);
-
-        button.setLocation(getPixelOfCoordinateX(x), getPixelOfCoordinateY(y));
-
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println(button);
-            }
-        });
-        button.setPreferredSize(new Dimension(SQUARE_WIDTH, SQUARE_WIDTH));
-        button.setBorder(null);
-        button.setVisible(true);
-        return button;
     }
 
     public ImageIcon getRandomIcon(int x, int y) {
@@ -139,9 +136,8 @@ public class MapPanel extends JFrame implements Movable{
         removeRedundantTiles();
     }
 
-
     public void moveDown() {
-        startingCoordinateY++;
+        startingCoordinateY--;
         for (int i = 0; i < jPanelMap.getComponents().length; i++) {
             JButton component = (JButton) jPanelMap.getComponent(i);
             component.setLocation(component.getX(), component.getY() - SQUARE_WIDTH);
@@ -167,7 +163,7 @@ public class MapPanel extends JFrame implements Movable{
     }
 
     public void moveLeft() {
-        startingCoordinateX++;
+        startingCoordinateX--;
         for (int i = 0; i < jPanelMap.getComponents().length; i++) {
             JButton component = (JButton) jPanelMap.getComponent(i);
             component.setLocation(component.getX() + SQUARE_WIDTH, component.getY());
@@ -194,62 +190,4 @@ public class MapPanel extends JFrame implements Movable{
         }
 
     }
-
-    /* key controls for later
-    public JPanel arrowPanelCreate(){
-        jPanelArrows = new JPanel();
-        jPanelArrows.setLayout(null);
-        jPanelArrows.setOpaque(false);
-
-        jPanelArrows.setVisible(true);
-        jPanelArrows.setMaximumSize(new Dimension(3 * ARROW_SIZE, 3 * ARROW_SIZE));
-        jPanelArrows = arrowsToNavigate(jPanelArrows);
-        //jPanelArrows.setLayout(null);
-        //jPanelArrows.setLayout(new OverlayLayout(jPanelArrows));
-        //jPanelArrows.add(jPanelMap);
-        //this.setResizable(false);
-
-        return jPanelArrows;
-    }
-
-    public JPanel arrowsToNavigate(JPanel panel) {
-        panel.setBackground(null);
-        //panel.setVisible(true);
-        panel.setSize(new Dimension(100, 100));
-        Insets insets = panel.getInsets();
-
-        for (int i = 0; i < 4; i++) {
-            JButton button = new JButton();
-            button.setPreferredSize(new Dimension(ARROW_SIZE, ARROW_SIZE));
-            button.setIcon(chooseIconToNavigate(i));
-            button = positionOfArrows(button, insets, i);
-            button.setVisible(true);
-            panel.add(button);
-        }
-
-        return panel;
-    }
-
-    public ImageIcon chooseIconToNavigate(int i){
-        ImageIcon iconReturned = null;
-        switch (i){
-            case 0 -> iconReturned = new ImageIcon("src/main/resources/iconsArrows/up.png");
-            case 1 -> iconReturned = new ImageIcon("src/main/resources/iconsArrows/left.png");
-            case 2 -> iconReturned = new ImageIcon("src/main/resources/iconsArrows/right.png");
-            case 3 -> iconReturned = new ImageIcon("src/main/resources/iconsArrows/down.png");
-        }
-        return iconReturned;
-    }
-
-    public JButton positionOfArrows(JButton button, Insets insets, int i){
-        Dimension size = button.getPreferredSize();
-        switch (i){
-            case 0 -> button.setBounds(ARROW_SIZE + insets.left, insets.top, size.width, size.height);
-            case 1 -> button.setBounds( insets.left, ARROW_SIZE + insets.top, size.width, size.height);
-            case 2 -> button.setBounds( 2 * ARROW_SIZE + insets.left, ARROW_SIZE + insets.top, size.width, size.height);
-            case 3 -> button.setBounds( ARROW_SIZE + insets.left, 2 * ARROW_SIZE + insets.top, size.width, size.height);
-        }
-        return button;
-    } */
-
 }
