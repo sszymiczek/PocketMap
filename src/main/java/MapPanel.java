@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MapPanel extends JFrame implements Movable{
@@ -15,8 +16,8 @@ public class MapPanel extends JFrame implements Movable{
     private final int SQUARE_WIDTH = 100;
     //private final int ARROW_SIZE = 75;
     private final int FRAME_SIZE = 500;
-    private final int MAP_SIZE_X = 500;
-    private final int MAP_SIZE_Y = 500;
+    private final int MAP_SIZE_X = 600;
+    private final int MAP_SIZE_Y = 600;
 
     private int startingCoordinateX = 0;
     private int startingCoordinateY = 0;
@@ -75,13 +76,10 @@ public class MapPanel extends JFrame implements Movable{
 
         button.setLocation(getPixelOfCoordinateX(x), getPixelOfCoordinateY(y));
 
-        int testx = button.getX();
-        int testy = button.getY();
-
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(getPixelOfCoordinateX(x) + ", " + getPixelOfCoordinateY(y) + ": " + x + ", " + y + ": " + testx + ", " + testy);
+                System.out.println(button);
             }
         });
         button.setPreferredSize(new Dimension(SQUARE_WIDTH, SQUARE_WIDTH));
@@ -133,43 +131,68 @@ public class MapPanel extends JFrame implements Movable{
         startingCoordinateY++;
         for (int i = 0; i < jPanelMap.getComponents().length; i++) {
             JButton component = (JButton) jPanelMap.getComponent(i);
-
-            //System.out.println(component.getX() + ", " + component.getY());
-
-            jPanelMap.getComponent(i).setLocation(component.getX(), component.getY() + SQUARE_WIDTH);
+            component.setLocation(component.getX(), component.getY() + SQUARE_WIDTH);
         }
-
         for (int i = 0; i <= getMaxCoordinateX(); i++) {
             generateNewTileAtCoordinates(i, getMaxCoordinateY());
         }
+        removeRedundantTiles();
+    }
 
+
+    public void moveDown() {
+        startingCoordinateY++;
+        for (int i = 0; i < jPanelMap.getComponents().length; i++) {
+            JButton component = (JButton) jPanelMap.getComponent(i);
+            component.setLocation(component.getX(), component.getY() - SQUARE_WIDTH);
+        }
+        for (int i = 0; i <= getMaxCoordinateX(); i++) {
+            generateNewTileAtCoordinates(i, 0);
+        }
+        removeRedundantTiles();
+        System.out.println(jPanelMap.getComponentCount());
+    }
+
+    public void moveRight() {
+        startingCoordinateX++;
+        for (int i = 0; i < jPanelMap.getComponents().length; i++) {
+            JButton component = (JButton) jPanelMap.getComponent(i);
+            component.setLocation(component.getX() - SQUARE_WIDTH, component.getY());
+        }
+        for (int i = 0; i <= getMaxCoordinateY(); i++) {
+            generateNewTileAtCoordinates(getMaxCoordinateX(), i);
+        }
         removeRedundantTiles();
 
     }
 
-    public void moveDown() {
-        Component[] components = this.jPanelMap.getComponents();
-
-    }
-
-    public void moveRight() {
-        Component[] components = this.jPanelMap.getComponents();
-
-    }
-
     public void moveLeft() {
-        Component[] components = this.jPanelMap.getComponents();
+        startingCoordinateX++;
+        for (int i = 0; i < jPanelMap.getComponents().length; i++) {
+            JButton component = (JButton) jPanelMap.getComponent(i);
+            component.setLocation(component.getX() + SQUARE_WIDTH, component.getY());
+        }
+        for (int i = 0; i <= getMaxCoordinateY(); i++) {
+            generateNewTileAtCoordinates(0, i);
+        }
+        removeRedundantTiles();
 
     }
 
     public void removeRedundantTiles(){
+        ArrayList<Component> tmp = new ArrayList<>();
         for (int i = 0; i < jPanelMap.getComponents().length; i++) {
             JButton component = (JButton) jPanelMap.getComponent(i);
 
-            if (component.getY() > MAP_SIZE_Y - SQUARE_WIDTH || component.getX() > MAP_SIZE_X - SQUARE_WIDTH) {
-                jPanelMap.remove(jPanelMap.getComponent(i));
+            if (component.getY() > MAP_SIZE_Y - SQUARE_WIDTH || component.getY() < 0 || component.getX() < 0 || component.getX() > MAP_SIZE_X - SQUARE_WIDTH) {
+                tmp.add(component);
             }
         }
+
+        for (int i = 0; i < tmp.size(); i++) {
+            jPanelMap.remove(tmp.get(i));
+        }
+
     }
 
     /* key controls for later
