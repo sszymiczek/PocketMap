@@ -17,12 +17,37 @@ public class MyRandom {
         return random.nextInt();
     }
 
-    public int nextParkMiller(long seed){
+    public int nextParkMiller(int seed){
         long a = 16807;
         long m = ((long)2 << 31)-1;
-        seed = (a * seed) % m;
+        seed = (int) ((a * seed) % m);
 
         return (int) Math.abs(seed);
+    }
+
+    public int nextLCG(int seed){
+        long a = 630360016;
+        long x = seed;
+        long  m = (1 << 31) - 1;
+        long c = 0;
+
+        x = (multi(a, x, m) + c) % m;
+        return Math.abs((int)x);
+    }
+
+    private static long multi(long a, long x, long m){
+        long r = 0;
+        long n = 1;
+        long b = 1;
+        while (n <= 64) {
+            if ((a & b) != 0){
+                r = (r + x) % m;
+            }
+            x = (x + x) % m;
+            b *= 2;
+            n++;
+        }
+        return r;
     }
 
 }
