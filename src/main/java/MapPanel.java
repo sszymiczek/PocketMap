@@ -85,8 +85,7 @@ public class MapPanel extends JFrame implements Movable{
     }
 
     public ImageIcon getRandomIcon(int x, int y) {
-        random.setNLehmerSeed(13*(startingCoordinateX + x) + 19*(startingCoordinateY + y));
-        int rnd = random.nextLehmer32(4);
+        int rnd = random.nextLehmer32(13*(startingCoordinateX + x) + 19*(startingCoordinateY + y))%4;
 
         switch (rnd) {
             case 0 -> {
