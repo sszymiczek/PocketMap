@@ -10,8 +10,8 @@ public class SaveCoordinatesPanel {
     private List<int[]> savedLocation = new ArrayList();
     private JButton saveButton;
     private JComboBox<Point> savedLocCombobox;
-    private int xToSave = 5;
-    private int yToSave = 7;
+    private int xToSave;
+    private int yToSave;
     private Coordinates map;
     public Point pt;
 
@@ -68,7 +68,9 @@ public class SaveCoordinatesPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Point tmp = (Point) savedLocCombobox.getSelectedItem();
-                map.generateMap((int)tmp.getX(), (int)tmp.getY());
+                System.out.println("gping to x: " + tmp.getX() + ", y: " + tmp.getY());
+
+                //map.generateMap((int)tmp.getX(), (int)tmp.getY());
             }
         });
         panel.add(saveButton);
@@ -76,6 +78,8 @@ public class SaveCoordinatesPanel {
     }
 
     public void saveCurrentCoordinates(){
+        xToSave = map.getRealX();
+        yToSave = map.getRealY();
         Point point = pointString(xToSave, yToSave);
         savedLocCombobox.addItem(point);
     }

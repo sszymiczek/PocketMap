@@ -89,8 +89,6 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
         tile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(tile);
-                System.out.println(realX + " " + realY);
             }
         });
 
