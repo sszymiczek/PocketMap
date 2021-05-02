@@ -68,7 +68,7 @@ public class SaveCoordinatesPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Point tmp = (Point) savedLocCombobox.getSelectedItem();
-                System.out.println("gping to x: " + tmp.getX() + ", y: " + tmp.getY());
+                System.out.println("going to x: " + tmp.getX() + ", y: " + tmp.getY());
                 map.generateMap((int)tmp.getX(), (int)tmp.getY());
             }
         });

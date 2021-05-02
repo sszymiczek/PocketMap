@@ -10,7 +10,6 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
     private JPanel jPanelMap;
     private HashMap<String, ImageIcon> mapsOfIcons = new HashMap<>();
     private MyRandom random = new MyRandom();
-    private ArrowPanel arrowPanel = new ArrowPanel();
 
     private final int SQUARE_WIDTH = 100;
     private final int MAP_SIZE_X = 600;
@@ -58,9 +57,11 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
     }
 
     public void generateMap(int x, int y){
-        realX = x;
-        realY = y;
+        jPanelMap.removeAll();
+        setRealX(x);
+        setRealY(y);
         generateMap();
+        jPanelMap.repaint();
     }
 
     private int getMaxCoordinateX() {
@@ -202,7 +203,12 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
         for (int i = 0; i < tmp.size(); i++) {
             jPanelMap.remove(tmp.get(i));
         }
+    }
 
+    private void jPanelMapRemoveAll(){
+        for (int i = 0; i < jPanelMap.getComponents().length; i++) {
+            jPanelMap.remove(0);
+        }
     }
 
 }
