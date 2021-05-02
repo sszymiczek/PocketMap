@@ -13,7 +13,7 @@ public class SaveCoordinatesPanel {
     private int xToSave;
     private int yToSave;
     private Coordinates map;
-    public Point pt;
+    //public Point pt;
 
     public JPanel createCoordinatesPanel() {
         JPanel jPanelCoordinates = new JPanel();
@@ -69,8 +69,7 @@ public class SaveCoordinatesPanel {
             public void actionPerformed(ActionEvent e) {
                 Point tmp = (Point) savedLocCombobox.getSelectedItem();
                 System.out.println("gping to x: " + tmp.getX() + ", y: " + tmp.getY());
-
-                //map.generateMap((int)tmp.getX(), (int)tmp.getY());
+                map.generateMap((int)tmp.getX(), (int)tmp.getY());
             }
         });
         panel.add(saveButton);
@@ -85,10 +84,10 @@ public class SaveCoordinatesPanel {
     }
 
     public Point pointString(int x, int y){
-        pt = new Point(x, y){
+        Point pt = new Point(x, y){
             @Override
             public String toString(){
-                return "x: " + pt.x + ", " + "y: " + pt.y;
+                return "x: " + this.getX() + ", " + "y: " + this.getY();
             }
         };
         return pt;
