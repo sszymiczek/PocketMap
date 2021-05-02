@@ -5,27 +5,31 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SaveCoordPanel implements Coordinates{
+public class SaveCoordinatesPanel {
     public final int BUTTON_SIZE = 30;
     private List<int[]> savedLocation = new ArrayList();
     private JButton saveButton;
     private JComboBox<Point> savedLocCombobox;
     private int xToSave = 5;
     private int yToSave = 7;
+    private Coordinates map;
     public Point pt;
 
+    public SaveCoordinatesPanel(Coordinates map) {
+        this.map = map;
+    }
 
-    public JPanel createCoordPanel() {
-        JPanel jPanelCoord = new JPanel();
-        jPanelCoord.setBackground(null);
-        jPanelCoord.setVisible(true);
-        jPanelCoord.setSize(new Dimension(225, 3 * BUTTON_SIZE + 20));
-        jPanelCoord.setLayout(null);
-        jPanelCoord = getSaveButton(jPanelCoord);
-        jPanelCoord = getSavedLocCombo(jPanelCoord);
-        jPanelCoord = getGoToButton(jPanelCoord);
+    public JPanel createCoordinatesPanel() {
+        JPanel jPanelCoordinates = new JPanel();
+        jPanelCoordinates.setBackground(null);
+        jPanelCoordinates.setVisible(true);
+        jPanelCoordinates.setSize(new Dimension(225, 3 * BUTTON_SIZE + 20));
+        jPanelCoordinates.setLayout(null);
+        jPanelCoordinates = getSaveButton(jPanelCoordinates);
+        jPanelCoordinates = getSavedLocCombo(jPanelCoordinates);
+        jPanelCoordinates = getGoToButton(jPanelCoordinates);
 
-        return jPanelCoord;
+        return jPanelCoordinates;
     }
 
     public JPanel getSaveButton(JPanel panel){
@@ -68,7 +72,7 @@ public class SaveCoordPanel implements Coordinates{
             @Override
             public void actionPerformed(ActionEvent e) {
                 Point tmp = (Point) savedLocCombobox.getSelectedItem();
-                generateMap((int)tmp.getX(), (int)tmp.getY());
+                map.generateMap((int)tmp.getX(), (int)tmp.getY());
             }
         });
         panel.add(saveButton);
