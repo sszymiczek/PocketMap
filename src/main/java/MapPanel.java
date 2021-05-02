@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MapPanel extends JFrame implements Movable{
+public class MapPanel extends JFrame implements Movable, Coordinates{
 
     private JPanel jPanelMap;
     private HashMap<String, ImageIcon> mapsOfIcons = new HashMap<>();
@@ -16,8 +16,24 @@ public class MapPanel extends JFrame implements Movable{
     private final int MAP_SIZE_X = 600;
     private final int MAP_SIZE_Y = 600;
 
-    private int startingCoordinateX = 0;
-    private int startingCoordinateY = 0;
+    private int realX = 0;
+    private int realY = 0;
+
+    public int getRealX() {
+        return realX;
+    }
+
+    public int getRealY() {
+        return realY;
+    }
+
+    public void setRealX(int realX) {
+        this.realX = realX;
+    }
+
+    public void setRealY(int realY) {
+        this.realY = realY;
+    }
 
     public JPanel mainMapCreate(){
         preparePanel();
@@ -42,8 +58,8 @@ public class MapPanel extends JFrame implements Movable{
     }
 
     public void generateMap(int x, int y){
-        startingCoordinateX = x;
-        startingCoordinateY = y;
+        realX = x;
+        realY = y;
         generateMap();
     }
 
@@ -74,7 +90,7 @@ public class MapPanel extends JFrame implements Movable{
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(tile);
-                System.out.println(startingCoordinateX + " " + startingCoordinateY);
+                System.out.println(realX + " " + realY);
             }
         });
 
@@ -90,7 +106,7 @@ public class MapPanel extends JFrame implements Movable{
     }
 
     private ImageIcon getRandomIcon(int x, int y) {
-        int rnd = random.nextLehmer32(13*(startingCoordinateX + x) + 19*(startingCoordinateY + y))%4;
+        int rnd = random.nextLehmer32(13*(realX + x) + 19*(realY + y))%4;
 
         switch (rnd) {
             case 0 -> {
@@ -128,7 +144,7 @@ public class MapPanel extends JFrame implements Movable{
     }
 
     public void moveUp() {
-        startingCoordinateY++;
+        realY++;
         for (int i = 0; i < jPanelMap.getComponents().length; i++) {
             JButton component = (JButton) jPanelMap.getComponent(i);
             component.setLocation(component.getX(), component.getY() + SQUARE_WIDTH);
@@ -140,7 +156,7 @@ public class MapPanel extends JFrame implements Movable{
     }
 
     public void moveDown() {
-        startingCoordinateY--;
+        realY--;
         for (int i = 0; i < jPanelMap.getComponents().length; i++) {
             JButton component = (JButton) jPanelMap.getComponent(i);
             component.setLocation(component.getX(), component.getY() - SQUARE_WIDTH);
@@ -152,7 +168,7 @@ public class MapPanel extends JFrame implements Movable{
     }
 
     public void moveRight() {
-        startingCoordinateX++;
+        realX++;
         for (int i = 0; i < jPanelMap.getComponents().length; i++) {
             JButton component = (JButton) jPanelMap.getComponent(i);
             component.setLocation(component.getX() - SQUARE_WIDTH, component.getY());
@@ -161,11 +177,10 @@ public class MapPanel extends JFrame implements Movable{
             generateNewTileAtCoordinates(getMaxCoordinateX(), i);
         }
         removeRedundantTiles();
-
     }
 
     public void moveLeft() {
-        startingCoordinateX--;
+        realX--;
         for (int i = 0; i < jPanelMap.getComponents().length; i++) {
             JButton component = (JButton) jPanelMap.getComponent(i);
             component.setLocation(component.getX() + SQUARE_WIDTH, component.getY());
@@ -174,7 +189,6 @@ public class MapPanel extends JFrame implements Movable{
             generateNewTileAtCoordinates(0, i);
         }
         removeRedundantTiles();
-
     }
 
     private void removeRedundantTiles(){
@@ -193,11 +207,4 @@ public class MapPanel extends JFrame implements Movable{
 
     }
 
-    public int getStartingCoordinateX(){
-        return this.startingCoordinateX;
-    }
-
-    public int getStartingCoordinateY(){
-        return this.startingCoordinateY;
-    }
 }

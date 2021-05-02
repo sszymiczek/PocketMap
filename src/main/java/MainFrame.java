@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 
 public class MainFrame extends JFrame {
     private JPanel jPanelMap;
@@ -37,7 +36,7 @@ public class MainFrame extends JFrame {
         opakuj.add(jPanelArrows);
         Insets insets = jPanelArrows.getInsets();
         Dimension size = jPanelArrows.getPreferredSize();
-        jPanelArrows.setBounds(insets.left, insets.top + 70, size.width, size.height);
+        jPanelArrows.setBounds(insets.left, insets.top + 120, size.width, size.height);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jPanelMap, opakuj){
             @Override
