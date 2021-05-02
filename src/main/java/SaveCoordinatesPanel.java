@@ -15,10 +15,6 @@ public class SaveCoordinatesPanel {
     private Coordinates map;
     public Point pt;
 
-    public SaveCoordinatesPanel(Coordinates map) {
-        this.map = map;
-    }
-
     public JPanel createCoordinatesPanel() {
         JPanel jPanelCoordinates = new JPanel();
         jPanelCoordinates.setBackground(null);
@@ -92,5 +88,9 @@ public class SaveCoordinatesPanel {
             }
         };
         return pt;
+    }
+
+    public void setMap(Coordinates map) {
+        this.map = map;
     }
 }

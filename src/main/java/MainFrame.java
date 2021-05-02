@@ -7,7 +7,7 @@ public class MainFrame extends JFrame {
     private JPanel jPanelCoordinates;
     private ArrowPanel arrowPanel = new ArrowPanel();
     private MapPanel mapPanel = new MapPanel();
-    private SaveCoordinatesPanel saveCoordinatesPanel;
+    private SaveCoordinatesPanel saveCoordinatesPanel = new SaveCoordinatesPanel();
 
     private final int FRAME_SIZE = 700;
     private int ARROW_SIZE = arrowPanel.ARROW_SIZE;
@@ -20,7 +20,7 @@ public class MainFrame extends JFrame {
         JSplitPane splitPane = createSplitPane();
         this.add(splitPane);
 
-        saveCoordinatesPanel = new SaveCoordinatesPanel(mapPanel);
+        saveCoordinatesPanel.setMap(mapPanel);
 
         this.setSize(FRAME_SIZE + insets.left + insets.right, FRAME_SIZE + insets.top + insets.bottom);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
