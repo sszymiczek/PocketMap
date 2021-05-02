@@ -8,13 +8,11 @@ import java.util.HashMap;
 public class MapPanel extends JFrame implements Movable{
 
     private JPanel jPanelMap;
-    private JPanel jPanelArrows;
     private HashMap<String, ImageIcon> mapsOfIcons = new HashMap<>();
     private MyRandom random = new MyRandom();
     private ArrowPanel arrowPanel = new ArrowPanel();
 
     private final int SQUARE_WIDTH = 100;
-    private final int FRAME_SIZE = 500;
     private final int MAP_SIZE_X = 600;
     private final int MAP_SIZE_Y = 600;
 
@@ -35,11 +33,18 @@ public class MapPanel extends JFrame implements Movable{
     }
 
     public void generateMap() {
+        jPanelMap.removeAll();
         for (int i = 0; i <= getMaxCoordinateX(); i++) {
             for (int j = getMaxCoordinateY(); j >= 0; j--) {
                 generateNewTileAtCoordinates(i, j);
             }
         }
+    }
+
+    public void generateMap(int x, int y){
+        startingCoordinateX = x;
+        startingCoordinateY = y;
+        generateMap();
     }
 
     private int getMaxCoordinateX() {
@@ -84,7 +89,7 @@ public class MapPanel extends JFrame implements Movable{
         return x * SQUARE_WIDTH;
     }
 
-    public ImageIcon getRandomIcon(int x, int y) {
+    private ImageIcon getRandomIcon(int x, int y) {
         int rnd = random.nextLehmer32(13*(startingCoordinateX + x) + 19*(startingCoordinateY + y))%4;
 
         switch (rnd) {
@@ -172,7 +177,7 @@ public class MapPanel extends JFrame implements Movable{
 
     }
 
-    public void removeRedundantTiles(){
+    private void removeRedundantTiles(){
         ArrayList<Component> tmp = new ArrayList<>();
         for (int i = 0; i < jPanelMap.getComponents().length; i++) {
             JButton component = (JButton) jPanelMap.getComponent(i);
@@ -186,5 +191,13 @@ public class MapPanel extends JFrame implements Movable{
             jPanelMap.remove(tmp.get(i));
         }
 
+    }
+
+    public int getStartingCoordinateX(){
+        return this.startingCoordinateX;
+    }
+
+    public int getStartingCoordinateY(){
+        return this.startingCoordinateY;
     }
 }
