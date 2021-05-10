@@ -5,13 +5,13 @@ import java.io.IOException;
 
 public class Zadanie1 {
     private MyRandom myRandom = new MyRandom();
-    private static int COUNT = 100;
+    private static long COUNT = 32_000_000;
     private static String PATH = "src/main/resources/inputFile.txt";
 
     public void pokazLiczby(){
-        for (long i = 1; i < 32_000_000; i++) {
+        for (long i = 0; i < COUNT; i++) {
             int result = myRandom.nextLehmer32();
-            if(i%1000 == 0) {
+            if(i%10000 == 0) {
                 System.out.println(i);
             }
             addIntLine(Integer.toString(result));
@@ -34,7 +34,7 @@ public class Zadanie1 {
         try {
             FileWriter myWriter = new FileWriter(PATH);
             myWriter.write("#==================================================================\n");
-            myWriter.write("# generator Lehmer32              seed = 1\n");
+            myWriter.write("# generator Lehmer32              seed = 0\n");
             myWriter.write("#==================================================================\n");
             myWriter.write("type: d\n" +
                     "count: " + COUNT + "\n" +
