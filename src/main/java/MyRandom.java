@@ -2,14 +2,23 @@ import java.util.Random;
 
 public class MyRandom {
     private final Random random = new Random();
+    int nLehmerSeed;
 
     public int nextLehmer32(int seed){
-        seed += 0xe120fc15;
-        long tmp = (long)seed * 0x4a39b70d;
+        setNLehmerSeed(seed);
+        return nextLehmer32();
+    }
+    public int nextLehmer32(){
+        nLehmerSeed += 0xe120fc15;
+        long tmp = (long)nLehmerSeed * 0x4a39b70d;
         int m1 = (int)((tmp >> 32) ^ tmp);
         tmp = (long)m1 * 0x12fad5c9;
         int m2 = (int)((tmp >> 32) ^ tmp);
         return Math.abs(m2);
+    }
+
+    public void setNLehmerSeed(int seed){
+        nLehmerSeed = seed;
     }
 
     public int nextJavaRandom(int seed){
