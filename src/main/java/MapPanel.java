@@ -18,22 +18,6 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
     private int realX = 0;
     private int realY = 0;
 
-    public int getRealX() {
-        return realX;
-    }
-
-    public int getRealY() {
-        return realY;
-    }
-
-    public void setRealX(int realX) {
-        this.realX = realX;
-    }
-
-    public void setRealY(int realY) {
-        this.realY = realY;
-    }
-
     public JPanel mainMapCreate(){
         preparePanel();
         generateMap();
@@ -211,4 +195,19 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
         }
     }
 
+    public int getRealX() {
+        return realX;
+    }
+
+    public int getRealY() {
+        return realY;
+    }
+
+    public void setRealX(int realX) {
+        this.realX = realX;
+    }
+
+    public void setRealY(int realY) {
+        this.realY = realY;
+    }
 }
