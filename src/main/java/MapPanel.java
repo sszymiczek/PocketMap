@@ -11,9 +11,9 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
     private HashMap<String, ImageIcon> mapsOfIcons = new HashMap<>();
     private MyRandom random = new MyRandom();
 
-    private final int SQUARE_WIDTH = 100;
-    private final int MAP_SIZE_X = 600;
-    private final int MAP_SIZE_Y = 600;
+    private final int SQUARE_WIDTH = 25;
+    private final int MAP_SIZE_X = 1300;
+    private final int MAP_SIZE_Y = 1300;
 
     private int realX = 0;
     private int realY = 0;
@@ -89,24 +89,18 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
     }
 
     private ImageIcon getRandomIcon(int x, int y) {
-        int rnd = random.nextLehmer32(13*(realX + x) + 19*(realY + y))%4;
+        int seed = 13*(realX + x) + 19*(realY + y);
+        int rnd = random.nextLehmer32(seed)%100;
+        rnd++;
 
-        switch (rnd) {
-            case 0 -> {
-                return this.mapsOfIcons.get("green");
-            }
-            case 1 -> {
-                return this.mapsOfIcons.get("red");
-            }
-            case 2 -> {
-                return this.mapsOfIcons.get("blue");
-            }
-            case 3 -> {
-                return this.mapsOfIcons.get("yellow");
-            }
-            default -> {
-                return this.mapsOfIcons.get("black");
-            }
+        if (rnd <= 25){
+            return this.mapsOfIcons.get("green");
+        } else if (rnd <= 50){
+            return this.mapsOfIcons.get("blue");
+        } else if (rnd <= 75) {
+            return this.mapsOfIcons.get("yellow");
+        } else {
+            return this.mapsOfIcons.get("red");
         }
     }
 

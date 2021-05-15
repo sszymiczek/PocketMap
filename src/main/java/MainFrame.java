@@ -31,15 +31,15 @@ public class MainFrame extends JFrame {
         jPanelMap = mapPanel.mainMapCreate();
         jPanelCoordinates = saveCoordinatesPanel.createCoordinatesPanel();
 
-        JPanel opakuj = new JPanel();
-        opakuj.setLayout(null);
-        opakuj.add(jPanelCoordinates);
-        opakuj.add(jPanelArrows);
+        JPanel tmpPanel = new JPanel();
+        tmpPanel.setLayout(null);
+        tmpPanel.add(jPanelCoordinates);
+        tmpPanel.add(jPanelArrows);
         Insets insets = jPanelArrows.getInsets();
         Dimension size = jPanelArrows.getPreferredSize();
         jPanelArrows.setBounds(insets.left, insets.top + 120, size.width, size.height);
 
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jPanelMap, opakuj){
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jPanelMap, tmpPanel){
             @Override
             public int getDividerLocation(){
                 return this.getWidth() - 3 * ARROW_SIZE;
