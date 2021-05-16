@@ -90,7 +90,8 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
 
     private ImageIcon getRandomIcon(int x, int y) {
         int seed = 13*(realX + x) + 19*(realY + y);
-        int rnd = random.nextLehmer32(seed)%100;
+        //long rnd = random.nextLehmer64(seed)%100;
+        int rnd = random.nextJavaRandom(seed)%100;
         rnd++;
 
         if (rnd <= 25){
