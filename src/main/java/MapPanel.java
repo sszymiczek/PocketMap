@@ -10,6 +10,7 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
     private JPanel jPanelMap;
     private HashMap<String, ImageIcon> mapsOfIcons = new HashMap<>();
     private MyRandom random = new MyRandom();
+    private TerrainManager terrainManager = new TerrainManager(mapsOfIcons);
 
     private final int SQUARE_WIDTH = 25;
     private final int MAP_SIZE_X = 1300;
@@ -90,8 +91,7 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
 
     private ImageIcon getRandomIcon(int x, int y) {
         int seed = 13*(realX + x) + 19*(realY + y);
-        //long rnd = random.nextLehmer64(seed)%100;
-        int rnd = random.nextJavaRandom(seed)%100;
+        long rnd = random.nextLehmer64(seed)%100;
         rnd++;
 
         if (rnd <= 25){
@@ -104,6 +104,9 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
             return this.mapsOfIcons.get("red");
         }
     }
+//    private ImageIcon getRandomIcon(int x, int y){ //FUTURE ALTERNATIVE
+//        return terrainManager.getRandomIcon(x, y);
+//    }
 
     public void loadIcons() {
         this.mapsOfIcons.clear();
@@ -119,6 +122,8 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
         this.mapsOfIcons.put("blue", blue);
         this.mapsOfIcons.put("yellow", yellow);
         this.mapsOfIcons.put("black", black);
+
+        terrainManager.setMapsOfIcons(mapsOfIcons);
     }
 
     public void moveUp() {
