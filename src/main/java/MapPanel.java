@@ -89,24 +89,24 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
         return x * SQUARE_WIDTH;
     }
 
-    private ImageIcon getRandomIcon(int x, int y) {
-        int seed = 13*(realX + x) + 19*(realY + y);
-        long rnd = random.nextLehmer64(seed)%100;
-        rnd++;
-
-        if (rnd <= 25){
-            return this.mapsOfIcons.get("green");
-        } else if (rnd <= 50){
-            return this.mapsOfIcons.get("blue");
-        } else if (rnd <= 75) {
-            return this.mapsOfIcons.get("yellow");
-        } else {
-            return this.mapsOfIcons.get("red");
-        }
-    }
-//    private ImageIcon getRandomIcon(int x, int y){ //FUTURE ALTERNATIVE
-//        return terrainManager.getRandomIcon(x, y);
+//    private ImageIcon getRandomIcon(int x, int y) {
+//        int seed = 13*(realX + x) + 19*(realY + y);
+//        long rnd = random.nextLehmer64(seed)%100;
+//        rnd++;
+//
+//        if (rnd <= 25){
+//            return this.mapsOfIcons.get("green");
+//        } else if (rnd <= 50){
+//            return this.mapsOfIcons.get("blue");
+//        } else if (rnd <= 75) {
+//            return this.mapsOfIcons.get("yellow");
+//        } else {
+//            return this.mapsOfIcons.get("red");
+//        }
 //    }
+    private ImageIcon getRandomIcon(int x, int y){ //FUTURE ALTERNATIVE
+        return terrainManager.getRandomIcon(x + realX, y + realY);
+    }
 
     public void loadIcons() {
         this.mapsOfIcons.clear();

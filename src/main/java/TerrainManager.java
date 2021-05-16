@@ -4,46 +4,74 @@ import java.util.HashMap;
 public class TerrainManager {
     private MyRandom random = new MyRandom();
     private HashMap<String, ImageIcon> mapsOfIcons = new HashMap<>();
-    private int x;
-    private int y;
+    int x; int y;
+    private int seed;
+    private int bigSquareWidth = 10;
+    long rnd;
 
     public TerrainManager(HashMap<String, ImageIcon> mapsOfIcons) {
         this.mapsOfIcons = mapsOfIcons;
     }
 
     public ImageIcon getRandomIcon(int x, int y){
-        int xPercentage = x%10;
-        int yPercentage = y%10;
-        this.x = x;
-        this.y = y;
-        int percent = (int) (random.nextLehmer64()%100);
-        if (xPercentage <= 5 && yPercentage <= 5)
-            if (percent <= 80) return getForest();
-            else if (percent <= 95) return getSea();
-            else return getVolcano();
-        else if(xPercentage <= 7 && yPercentage <= 7)
-            return getVolcano();
-        else if(xPercentage <= 8 && yPercentage <= 8)
-            return getSea();
-        else
-            return getHole();
+        this.x = x; this.y = y;
+        this.seed = 13 * x + 19 * + y;
 
+        int coarseX = x - x%bigSquareWidth; int coarseY = y - y%bigSquareWidth;
+        long CoarseRnd = random.nextLehmer64(19 * coarseX + 5 * coarseY)%100;
+        long rnd = random.nextLehmer64(13 * x + 19 * y);
+
+        if (CoarseRnd <= 75){
+            return getForest();
+        } else if (CoarseRnd <= 95){
+            return getSea();
+        } else {
+            return getVolcano();
+        }
     }
 
     private ImageIcon getForest(){
-        return mapsOfIcons.get("green");
+        long rnd = random.nextLehmer64(seed)%100;
+        if (rnd <= 80) {
+            return mapsOfIcons.get("green");
+        }else if (rnd <= 95){
+            return mapsOfIcons.get("yellow");
+        }else{
+            return mapsOfIcons.get("blue");
+        }
     }
 
     private ImageIcon getVolcano(){
-        return mapsOfIcons.get("red");
+//        if (x%bigSquareWidth >= 0.1*bigSquareWidth
+//        && x%bigSquareWidth <= 0.9*bigSquareWidth){
+            if (rnd <= 20){
+                return mapsOfIcons.get("red");
+            } else {
+                return mapsOfIcons.get("black");
+            }
+//        } else {
+//            if (rnd <= 95){
+//                return mapsOfIcons.get("black");
+//            } else {
+//                return mapsOfIcons.get("red");
+//            }
+//        }
     }
 
-    private ImageIcon getSea(){
-        return mapsOfIcons.get("blue");
+    private ImageIcon getSea() {
+        if (rnd <= 98) {
+            return mapsOfIcons.get("blue");
+        } else {
+            return mapsOfIcons.get("yellow");
+        }
     }
 
-    private ImageIcon getHole(){
-        return mapsOfIcons.get("black");
+    private ImageIcon getHole() {
+        if (rnd <= 50) {
+            return mapsOfIcons.get("black");
+        } else {
+            return mapsOfIcons.get("yellow");
+        }
     }
 
     public void setMapsOfIcons(HashMap<String, ImageIcon> mapsOfIcons) {
