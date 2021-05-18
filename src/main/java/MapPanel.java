@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MapPanel extends JFrame implements Movable, Coordinates{
 
@@ -59,7 +58,7 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
     private void generateNewTileAtCoordinates(int x, int y) {
         JButton tile = new JButton();
 
-        tile.setIcon(getRandomIcon(x, y));
+        tile.setIcon(getIcon(x, y));
 
         //some jButton casual stuff
         tile.setOpaque(true);
@@ -88,23 +87,8 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
         return x * SQUARE_WIDTH;
     }
 
-//    private ImageIcon getRandomIcon(int x, int y) {
-//        int seed = 13*(realX + x) + 19*(realY + y);
-//        long rnd = random.nextLehmer64(seed)%100;
-//        rnd++;
-//
-//        if (rnd <= 25){
-//            return this.mapsOfIcons.get("green");
-//        } else if (rnd <= 50){
-//            return this.mapsOfIcons.get("blue");
-//        } else if (rnd <= 75) {
-//            return this.mapsOfIcons.get("yellow");
-//        } else {
-//            return this.mapsOfIcons.get("red");
-//        }
-//    }
-    private ImageIcon getRandomIcon(int x, int y){ //FUTURE ALTERNATIVE
-        return terrainManager.getRandomIcon(x + realX, y + realY);
+    private ImageIcon getIcon(int x, int y){
+        return terrainManager.getMapLayoutIcon(x + realX, y + realY);
     }
 
     public void moveUp() {

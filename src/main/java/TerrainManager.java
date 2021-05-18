@@ -2,15 +2,28 @@ import javax.swing.*;
 
 public class TerrainManager {
     private MyRandom random = new MyRandom();
-    int x; int y;
     private int seed;
     private int bigSquareWidth = 10;
     private long rnd;
 
-    public ImageIcon getRandomIcon(int x, int y){
-        this.x = x; this.y = y;
-        this.seed = 13 * x + 19 * + y;
-        rnd = random.nextLehmer64(seed)%100;
+        public ImageIcon getMosaicIcon(int x, int y) {
+        setSeed(x, y);
+        rnd = random.nextLehmer64(seed)%100 + 1;
+
+        if (rnd <= 25){
+            return SpritesLoader.getMapSprites().get("green");
+        } else if (rnd <= 50){
+            return SpritesLoader.getMapSprites().get("blue");
+        } else if (rnd <= 75) {
+            return SpritesLoader.getMapSprites().get("yellow");
+        } else {
+            return SpritesLoader.getMapSprites().get("red");
+        }
+    }
+
+    public ImageIcon getMapLayoutIcon(int x, int y){
+        setSeed(x, y);
+        rnd = random.nextLehmer64(seed)%100 + 1; //1-100
 
         int coarseX = x - x%bigSquareWidth; int coarseY = y - y%bigSquareWidth;
         long coarseRnd = random.nextLehmer64(19 * coarseX + 5 * coarseY)%100;
@@ -73,6 +86,10 @@ public class TerrainManager {
         } else {
             return SpritesLoader.getMapSprites().get("yellow");
         }
+    }
+
+    public void setSeed(int x, int y) {
+        this.seed = 13 * x + 19 * + y;
     }
 }
 
