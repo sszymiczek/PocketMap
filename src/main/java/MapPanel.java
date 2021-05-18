@@ -8,9 +8,8 @@ import java.util.HashMap;
 public class MapPanel extends JFrame implements Movable, Coordinates{
 
     private JPanel jPanelMap;
-    private HashMap<String, ImageIcon> mapsOfIcons = new HashMap<>();
     private MyRandom random = new MyRandom();
-    private TerrainManager terrainManager = new TerrainManager(mapsOfIcons);
+    private TerrainManager terrainManager = new TerrainManager();
 
     private final int SQUARE_WIDTH = 25;
     private final int MAP_SIZE_X = 1300;
@@ -106,24 +105,6 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
 //    }
     private ImageIcon getRandomIcon(int x, int y){ //FUTURE ALTERNATIVE
         return terrainManager.getRandomIcon(x + realX, y + realY);
-    }
-
-    public void loadIcons() {
-        this.mapsOfIcons.clear();
-
-        ImageIcon green = new ImageIcon("src/main/resources/iconsMap/green.png");
-        ImageIcon red = new ImageIcon("src/main/resources/iconsMap/red.png");
-        ImageIcon blue = new ImageIcon("src/main/resources/iconsMap/blue.png");
-        ImageIcon yellow = new ImageIcon("src/main/resources/iconsMap/yellow.png");
-        ImageIcon black = new ImageIcon("src/main/resources/iconsMap/black.png");
-
-        this.mapsOfIcons.put("green", green);
-        this.mapsOfIcons.put("red", red);
-        this.mapsOfIcons.put("blue", blue);
-        this.mapsOfIcons.put("yellow", yellow);
-        this.mapsOfIcons.put("black", black);
-
-        terrainManager.setMapsOfIcons(mapsOfIcons);
     }
 
     public void moveUp() {

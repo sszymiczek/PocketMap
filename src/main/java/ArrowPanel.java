@@ -42,10 +42,11 @@ public class ArrowPanel{
     public ImageIcon chooseIconToNavigate(int i){
         ImageIcon iconReturned = null;
         switch (i){
-            case 0 -> iconReturned = new ImageIcon("src/main/resources/iconsArrows/up.png");
-            case 1 -> iconReturned = new ImageIcon("src/main/resources/iconsArrows/left.png");
-            case 2 -> iconReturned = new ImageIcon("src/main/resources/iconsArrows/right.png");
-            case 3 -> iconReturned = new ImageIcon("src/main/resources/iconsArrows/down.png");
+
+            case 0 -> iconReturned = SpritesLoader.getArrowSprites().get("up");//new ImageIcon("src/main/resources/iconsArrows/up.png");
+            case 1 -> iconReturned = SpritesLoader.getArrowSprites().get("left");
+            case 2 -> iconReturned = SpritesLoader.getArrowSprites().get("right");
+            case 3 -> iconReturned = SpritesLoader.getArrowSprites().get("down");
         }
         return iconReturned;
     }

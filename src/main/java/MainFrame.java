@@ -15,7 +15,8 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         Insets insets = this.getInsets();
-        mapPanel.loadIcons();
+        //mapPanel.loadIcons();                 DELETE
+        SpritesLoader.loadAll();
         this.setVisible(true);
         JSplitPane splitPane = createSplitPane();
         this.add(splitPane);
