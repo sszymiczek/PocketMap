@@ -3,12 +3,19 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Zadanie1 {
+public class Exercise1 {
     private MyRandom myRandom = new MyRandom();
     private static long COUNT = 32_000_000;
     private static String PATH = "src/main/resources/inputFile.txt";
 
-    public void pokazLiczby(){
+    public static void main(String[] args) {
+        Exercise1 exercise1 = new Exercise1();
+        exercise1.createFile();
+        exercise1.addHeader();
+        exercise1.showNumbers();
+    }
+
+    public void showNumbers(){
         for (long i = 0; i < COUNT; i++) {
             int result = myRandom.nextLehmer32();
             if(i%10000 == 0) {
@@ -17,6 +24,7 @@ public class Zadanie1 {
             addIntLine(Integer.toString(result));
         }
     }
+
     public void createFile(){
         File myInputFile = new File(PATH);
         try {
@@ -57,13 +65,5 @@ public class Zadanie1 {
         }catch (IOException e){
             e.printStackTrace();
         }
-
-    }
-
-    public static void main(String[] args) {
-        Zadanie1 zadanie1 = new Zadanie1();
-        zadanie1.createFile();
-        zadanie1.addHeader();
-        zadanie1.pokazLiczby();
     }
 }
