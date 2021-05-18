@@ -23,6 +23,8 @@ public abstract class SpritesLoader {
 
         mapSprites.put("red",
                 new ImageIcon("src/main/resources/iconsMap/red.png"));
+        mapSprites.put("darkRed",
+                new ImageIcon("src/main/resources/iconsMap/darkRed.png"));
 
         mapSprites.put("blue",
                 new ImageIcon("src/main/resources/iconsMap/blue.png"));
