@@ -1,24 +1,23 @@
 import javax.swing.*;
-import java.util.HashMap;
 
 public class TerrainManager {
     private MyRandom random = new MyRandom();
     int x; int y;
     private int seed;
     private int bigSquareWidth = 10;
-    long rnd;
+    private long rnd;
 
     public ImageIcon getRandomIcon(int x, int y){
         this.x = x; this.y = y;
         this.seed = 13 * x + 19 * + y;
+        rnd = random.nextLehmer64(seed)%100;
 
         int coarseX = x - x%bigSquareWidth; int coarseY = y - y%bigSquareWidth;
-        long CoarseRnd = random.nextLehmer64(19 * coarseX + 5 * coarseY)%100;
-        long rnd = random.nextLehmer64(13 * x + 19 * y);
+        long coarseRnd = random.nextLehmer64(19 * coarseX + 5 * coarseY)%100;
 
-        if (CoarseRnd <= 75){
+        if (coarseRnd <= 75){
             return getForest();
-        } else if (CoarseRnd <= 95){
+        } else if (coarseRnd <= 95){
             return getSea();
         } else {
             return getVolcano();
@@ -26,9 +25,12 @@ public class TerrainManager {
     }
 
     private ImageIcon getForest(){
-        long rnd = random.nextLehmer64(seed)%100;
-        if (rnd <= 80) {
+        if (rnd <= 27) {
             return SpritesLoader.getMapSprites().get("green");
+        }else if (rnd <= 54) {
+            return SpritesLoader.getMapSprites().get("darkGreen");
+        }else if (rnd <= 81) {
+            return SpritesLoader.getMapSprites().get("lightGreen");
         }else if (rnd <= 95){
             return SpritesLoader.getMapSprites().get("yellow");
         }else{
@@ -39,11 +41,11 @@ public class TerrainManager {
     private ImageIcon getVolcano(){
 //        if (x%bigSquareWidth >= 0.1*bigSquareWidth
 //        && x%bigSquareWidth <= 0.9*bigSquareWidth){
-            if (rnd <= 20){
-                return SpritesLoader.getMapSprites().get("red");
-            } else {
-                return SpritesLoader.getMapSprites().get("black");
-            }
+        if (rnd <= 80){
+            return SpritesLoader.getMapSprites().get("red");
+        } else {
+            return SpritesLoader.getMapSprites().get("black");
+        }
 //        } else {
 //            if (rnd <= 95){
 //                return mapsOfIcons.get("black");
@@ -54,8 +56,12 @@ public class TerrainManager {
     }
 
     private ImageIcon getSea() {
-        if (rnd <= 98) {
+        if (rnd <= 27) {
             return SpritesLoader.getMapSprites().get("blue");
+        }else if(rnd <= 40) {
+            return SpritesLoader.getMapSprites().get("lightBlue");
+        }else if(rnd <= 97) {
+            return SpritesLoader.getMapSprites().get("darkBlue");
         } else {
             return SpritesLoader.getMapSprites().get("yellow");
         }
