@@ -1,6 +1,7 @@
 # PocketMap
 
 ZADANIE 1.
+
 Upewnij się że w klasie MapPanel w metodzie getIcon używasz metody która wypełni mapę czterokolorową mozajką.
 
 Zmieniając w TerrainManager metodę losującą przetestuj wszystkie generatory liczb losowych.
