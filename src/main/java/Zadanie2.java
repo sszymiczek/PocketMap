@@ -6,7 +6,7 @@ public class Zadanie2 {
     public static void main(String[] args) {
         Zadanie2 zadanie2 = new Zadanie2();
         int m = 3;
-        String str = "6778468273658";
+        String str = "nie jest fajnie";
         String strBinary = zadanie2.strToBinary(str);
         m = zadanie2.chceckBlockSize(m, strBinary);
         zadanie2.pokerTest(strBinary, m);
@@ -68,12 +68,13 @@ public class Zadanie2 {
     }
 
     public int combinations(int N, int R) {
-        int n; int r; int nr;
+        int n; int r; int nr; int NR = N-R; int result;
         n = fractorialGenerator(N);
         r = fractorialGenerator(R);
-        nr = fractorialGenerator(N-R);
+        nr = fractorialGenerator(NR);
+        result = n / (r*nr);
 
-        return n/r*nr;
+        return result;
     }
 
     public int fractorialGenerator(int givenNumberToReturnFractorial){
@@ -99,6 +100,7 @@ public class Zadanie2 {
         double[] levels = {3.84,5.99,7.81,9.48,11.07,12.59,14.06};
         return levels[m-1] > pokerResult;
     }
+
     public void printResults(Boolean test){
         if (test)
             System.out.println("Gratulacje, test został zdany");
