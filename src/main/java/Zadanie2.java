@@ -8,7 +8,7 @@ public class Zadanie2 {
         int m = 3;
         String str = "6778468273658";
         String strBinary = zadanie2.strToBinary(str);
-        m = zadanie2.chceckBlockSize(m, strBinary);
+        m = zadanie2.checkBlockSize(m, strBinary);
         zadanie2.pokerTest(strBinary, m);
 
     }
@@ -25,7 +25,7 @@ public class Zadanie2 {
         return result.toString();
     }
 
-    public int chceckBlockSize(Integer m, String strBinary){
+    public int checkBlockSize(Integer m, String strBinary){
         while (strBinary.length()%m == 0)
             m++;
         return m;
