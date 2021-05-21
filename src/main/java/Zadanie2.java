@@ -69,18 +69,18 @@ public class Zadanie2 {
 
     public int combinations(int N, int R) {
         int n; int r; int nr;
-        n = fractorialGenerator(N);
-        r = fractorialGenerator(R);
-        nr = fractorialGenerator(N-R);
+        n = factorialGenerator(N);
+        r = factorialGenerator(R);
+        nr = factorialGenerator(N-R);
 
         return n/r*nr;
     }
 
-    public int fractorialGenerator(int givenNumberToReturnFactorial){
+    public int factorialGenerator(int givenNumberToReturnFactorial){
         if (givenNumberToReturnFactorial == 0)
             return 1;
         else
-            return givenNumberToReturnFactorial * fractorialGenerator(givenNumberToReturnFactorial - 1);
+            return givenNumberToReturnFactorial * factorialGenerator(givenNumberToReturnFactorial - 1);
     }
 
     public ArrayList<Double> expectedValues(Integer m, Integer k){
