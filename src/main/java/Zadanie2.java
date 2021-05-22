@@ -8,7 +8,7 @@ public class Zadanie2 {
         int m = 3;
         String str = "nie jest fajnie";
         String strBinary = zadanie2.strToBinary(str);
-        m = zadanie2.chceckBlockSize(m, strBinary);
+        m = zadanie2.checkBlockSize(m, strBinary);
         zadanie2.pokerTest(strBinary, m);
 
     }
@@ -25,8 +25,8 @@ public class Zadanie2 {
         return result.toString();
     }
 
-    public int chceckBlockSize(Integer m, String strBinary){
-        while (strBinary.length()%m == 0)
+    public int checkBlockSize(Integer m, String strBinary){
+        while (strBinary.length()%m != 0)
             m++;
         return m;
     }
@@ -54,17 +54,28 @@ public class Zadanie2 {
         }
         for (int i = 0; i < s.length() - m; i += m) {
             String str = s.substring(i, i + m);
-            combFreq = ocurencies(str, combFreq);
+            combFreq = occurencies(str, combFreq);
         }
         return combFreq;
     }
 
-    public HashMap<Long, Integer> ocurencies(String str, HashMap<Long, Integer> combFreq){
+    public HashMap<Long, Integer> occurencies(String str, HashMap<Long, Integer> combFreq){
         long count = str.chars().filter(ch -> ch == '1').count();
         int add = combFreq.get(count);
         combFreq.replace(count, add + 1);
 
         return combFreq;
+    }
+    public ArrayList<Double> expectedValues(Integer m, Integer k){
+        ArrayList<Double> expectedVals = new ArrayList<>();
+        expectedVals.add(1/Math.pow(2, m) * k);
+        expectedVals.add(m/Math.pow(2, m) * k);
+        for (int i = 2; i <= m-1; i++) {
+            int exp = combinations(m, i);
+            expectedVals.add(exp / Math.pow(2, m) * k);
+        }
+        expectedVals.add(1/Math.pow(2, m) * k);
+        return expectedVals;
     }
 
     public int combinations(int N, int R) {
@@ -82,18 +93,6 @@ public class Zadanie2 {
             return 1;
         else
             return givenNumberToReturnFractorial * fractorialGenerator(givenNumberToReturnFractorial - 1);
-    }
-
-    public ArrayList<Double> expectedValues(Integer m, Integer k){
-        ArrayList<Double> expectedVals = new ArrayList<>();
-        expectedVals.add(1/Math.pow(2, m) * k);
-        expectedVals.add(m/Math.pow(2, m) * k);
-        for (int i = 2; i <= m-1; i++) {
-            int exp = combinations(m, i);
-            expectedVals.add(exp / Math.pow(2, m) * k);
-        }
-        expectedVals.add(1/Math.pow(2, m) * k);
-        return expectedVals;
     }
 
     public Boolean freedomLevels(Double pokerResult, Integer m){
