@@ -3,16 +3,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Exercise1 {
+public class Exercise3 {
     private MyRandom myRandom = new MyRandom();
     private static long COUNT = 32_000_000;
     private static String PATH = "src/main/resources/inputFile.txt";
 
     public static void main(String[] args) {
-        Exercise1 exercise1 = new Exercise1();
-        exercise1.createFile();
-        exercise1.addHeader();
-        exercise1.showNumbers();
+        Exercise3 exercise3 = new Exercise3();
+        exercise3.createFile();
+        exercise3.addHeader();
+        exercise3.showNumbers();
     }
 
     public void showNumbers(){
