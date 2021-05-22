@@ -33,13 +33,13 @@ public class Zadanie2 {
 
     public void pokerTest(String s, Integer m){
         int k = s.length()/m;
-        HashMap<Long, Integer> freq = freqzMap(s, m);
+        HashMap<Long, Integer> freq = getSamplesFrequencyMap(s, m);
         ArrayList<Double> exp = expectedValues(m, k);
-        Double chi = chiSquared(freq, exp, m);
+        Double chi = chiSquared(freq, exp);
         printResults(freedomLevels(chi, m));
     }
 
-    public double chiSquared(HashMap<Long, Integer> combFreq, ArrayList<Double> expectedValues, Integer m){
+    public double chiSquared(HashMap<Long, Integer> combFreq, ArrayList<Double> expectedValues){
         double chi = 0;
         for (int i = 0; i < combFreq.size(); i++) {
             chi += Math.pow((combFreq.get((long)i) - expectedValues.get(i)), 2)/expectedValues.get(i);
@@ -47,52 +47,53 @@ public class Zadanie2 {
         return chi;
     }
 
-    public HashMap<Long, Integer> freqzMap(String s, Integer m){
+    public HashMap<Long, Integer> getSamplesFrequencyMap(String s, Integer m){
         HashMap<Long, Integer> combFreq = new HashMap<>();
         for (long i = 0; i <= m; i++) {
             combFreq.put(i, 0);
         }
         for (int i = 0; i < s.length() - m; i += m) {
             String str = s.substring(i, i + m);
-            combFreq = occurencies(str, combFreq);
+            combFreq = occurrences(str, combFreq);
         }
         return combFreq;
     }
 
-    public HashMap<Long, Integer> occurencies(String str, HashMap<Long, Integer> combFreq){
+    public HashMap<Long, Integer> occurrences(String str, HashMap<Long, Integer> combFreq){
         long count = str.chars().filter(ch -> ch == '1').count();
         int add = combFreq.get(count);
         combFreq.replace(count, add + 1);
 
         return combFreq;
     }
+
     public ArrayList<Double> expectedValues(Integer m, Integer k){
-        ArrayList<Double> expectedVals = new ArrayList<>();
-        expectedVals.add(1/Math.pow(2, m) * k);
-        expectedVals.add(m/Math.pow(2, m) * k);
+        ArrayList<Double> expectedValues = new ArrayList<>();
+        expectedValues.add(1/Math.pow(2, m) * k);
+        expectedValues.add(m/Math.pow(2, m) * k);
         for (int i = 2; i <= m-1; i++) {
             int exp = combinations(m, i);
-            expectedVals.add(exp / Math.pow(2, m) * k);
+            expectedValues.add(exp / Math.pow(2, m) * k);
         }
-        expectedVals.add(1/Math.pow(2, m) * k);
-        return expectedVals;
+        expectedValues.add(1/Math.pow(2, m) * k);
+        return expectedValues;
     }
 
     public int combinations(int N, int R) {
         int n; int r; int nr; int NR = N-R; int result;
-        n = fractorialGenerator(N);
-        r = fractorialGenerator(R);
-        nr = fractorialGenerator(NR);
+        n = factorialGenerator(N);
+        r = factorialGenerator(R);
+        nr = factorialGenerator(NR);
         result = n / (r*nr);
 
         return result;
     }
 
-    public int fractorialGenerator(int givenNumberToReturnFractorial){
-        if (givenNumberToReturnFractorial == 0)
+    public int factorialGenerator(int givenNumberToReturnFactorial){
+        if (givenNumberToReturnFactorial == 0)
             return 1;
         else
-            return givenNumberToReturnFractorial * fractorialGenerator(givenNumberToReturnFractorial - 1);
+            return givenNumberToReturnFactorial * factorialGenerator(givenNumberToReturnFactorial - 1);
     }
 
     public Boolean freedomLevels(Double pokerResult, Integer m){
