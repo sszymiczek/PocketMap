@@ -8,8 +8,8 @@ public class TerrainManager {
 
         public ImageIcon getMosaicIcon(int x, int y) {
         setSeed(x, y);
-        rnd = random.nextLehmer64(seed)%100 + 1;
-
+        rnd = random.nextLehmer64(seed);
+        rnd = rnd%100 + 1;
         if (rnd <= 25){
             return SpritesLoader.getMapSprites().get("green");
         } else if (rnd <= 50){
