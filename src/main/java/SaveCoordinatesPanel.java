@@ -21,16 +21,16 @@ public class SaveCoordinatesPanel {
         jPanelCoordinates.setVisible(true);
         jPanelCoordinates.setSize(new Dimension(225, 3 * BUTTON_SIZE + 20));
         jPanelCoordinates.setLayout(null);
-        jPanelCoordinates = getSaveButton(jPanelCoordinates);
-        jPanelCoordinates = getSavedLocCombo(jPanelCoordinates);
+        jPanelCoordinates = getSaveCoordinatesButton(jPanelCoordinates);
+        jPanelCoordinates = getSavedCoordinatesCombobox(jPanelCoordinates);
         jPanelCoordinates = getGoToButton(jPanelCoordinates);
 
         return jPanelCoordinates;
     }
 
-    public JPanel getSaveButton(JPanel panel){
-        Insets insets = panel.getInsets();
+    public JPanel getSaveCoordinatesButton(JPanel panel){
         saveButton = new JButton("SAVE LOCATION");
+        Insets insets = panel.getInsets();
         saveButton.setVisible(true);
         saveButton.setPreferredSize(new Dimension(225, BUTTON_SIZE));
         Dimension size = saveButton.getPreferredSize();
@@ -45,7 +45,7 @@ public class SaveCoordinatesPanel {
         return panel;
     }
 
-    public JPanel getSavedLocCombo(JPanel panel){
+    public JPanel getSavedCoordinatesCombobox(JPanel panel){
         savedLocCombobox = new JComboBox<>();
         Insets insets = panel.getInsets();
         savedLocCombobox.setVisible(true);
@@ -58,8 +58,8 @@ public class SaveCoordinatesPanel {
     }
 
     public JPanel getGoToButton(JPanel panel){
-        Insets insets = panel.getInsets();
         saveButton = new JButton("GO TO LOCATION");
+        Insets insets = panel.getInsets();
         saveButton.setVisible(true);
         saveButton.setPreferredSize(new Dimension(225, BUTTON_SIZE));
         Dimension size = saveButton.getPreferredSize();

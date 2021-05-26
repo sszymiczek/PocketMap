@@ -9,7 +9,7 @@ public class TerrainManager {
         public ImageIcon getMosaicIcon(int x, int y) {
         setSeed(x, y);
         rnd = random.nextLehmer64(seed);
-        rnd = rnd%100 + 1;
+        rnd = rnd%100 + 1; //1-100
         if (rnd <= 25){
             return SpritesLoader.getMapSprites().get("green");
         } else if (rnd <= 50){
@@ -33,7 +33,7 @@ public class TerrainManager {
         } else if (coarseRnd <= 95){
             return getSea();
         } else {
-            return getVolcano();
+            return getVolcano(x, y);
         }
     }
 
@@ -51,21 +51,23 @@ public class TerrainManager {
         }
     }
 
-    private ImageIcon getVolcano(){
-//        if (x%bigSquareWidth >= 0.1*bigSquareWidth
-//        && x%bigSquareWidth <= 0.9*bigSquareWidth){
-        if (rnd <= 80){
-            return SpritesLoader.getMapSprites().get("red");
+    private ImageIcon getVolcano(int x, int y){
+        if (x%bigSquareWidth >= 0.1*bigSquareWidth
+                && x%bigSquareWidth <= 0.9*bigSquareWidth
+                && y%bigSquareWidth >= 0.1*bigSquareWidth
+                && y%bigSquareWidth <= 0.9*bigSquareWidth){
+            if (rnd <= 80){
+                return SpritesLoader.getMapSprites().get("red");
+            } else {
+                return SpritesLoader.getMapSprites().get("black");
+            }
         } else {
-            return SpritesLoader.getMapSprites().get("black");
+            if (rnd <= 95){
+                return SpritesLoader.getMapSprites().get("black");
+            } else {
+                return SpritesLoader.getMapSprites().get("red");
+            }
         }
-//        } else {
-//            if (rnd <= 95){
-//                return mapsOfIcons.get("black");
-//            } else {
-//                return mapsOfIcons.get("red");
-//            }
-//        }
     }
 
     private ImageIcon getSea() {
