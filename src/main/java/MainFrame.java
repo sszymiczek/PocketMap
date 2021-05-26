@@ -37,7 +37,8 @@ public class MainFrame extends JFrame {
         tmpPanel.add(jPanelArrows);
         Insets insets = jPanelArrows.getInsets();
         Dimension size = jPanelArrows.getPreferredSize();
-        jPanelArrows.setBounds(insets.left, insets.top + 120, size.width, size.height);
+        jPanelCoordinates.setBounds(insets.left, insets.top , size.width, size.height);
+        jPanelArrows.setBounds(insets.left, insets.top + 150, size.width, size.height);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jPanelMap, tmpPanel){
             @Override
