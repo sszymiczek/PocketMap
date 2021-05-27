@@ -4,9 +4,8 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SaveCoordinatesPanel {
+public class SaveCoordinatesPanel extends Thread{
     public final int BUTTON_SIZE = 30;
-    private List<int[]> savedLocation = new ArrayList();
     private JButton saveButton;
     private JComboBox<Point> savedLocCombobox;
     private int xToSave;
@@ -14,6 +13,7 @@ public class SaveCoordinatesPanel {
     private Coordinates map;
     JTextField cordX;
     JTextField cordY;
+    JLabel locLabel;
 
     public JPanel createCoordinatesPanel() {
         JPanel jPanelCoordinates = new JPanel();
@@ -21,12 +21,25 @@ public class SaveCoordinatesPanel {
         jPanelCoordinates.setVisible(true);
         jPanelCoordinates.setSize(new Dimension(225, 3 * BUTTON_SIZE + 20));
         jPanelCoordinates.setLayout(null);
+        jPanelCoordinates = getLabelCurrentLoc(jPanelCoordinates);
         jPanelCoordinates = getSaveCoordinatesButton(jPanelCoordinates);
         jPanelCoordinates = getSavedCoordinatesCombobox(jPanelCoordinates);
         jPanelCoordinates = getGoToButton(jPanelCoordinates);
         jPanelCoordinates = getTextField(jPanelCoordinates);
 
+        start();
+
         return jPanelCoordinates;
+    }
+    public JPanel getLabelCurrentLoc(JPanel panel){
+        locLabel = new JLabel("x: " + xToSave + ", y: " + yToSave);
+        Insets insets = panel.getInsets();
+        locLabel.setVisible(true);
+        locLabel.setPreferredSize(new Dimension(225, BUTTON_SIZE));
+        Dimension size = locLabel.getPreferredSize();
+        locLabel.setBounds(insets.left, insets.top, size.width, size.height);
+        panel.add(locLabel);
+        return panel;
     }
 
     public JPanel getSaveCoordinatesButton(JPanel panel){
@@ -35,7 +48,7 @@ public class SaveCoordinatesPanel {
         saveButton.setVisible(true);
         saveButton.setPreferredSize(new Dimension(225, BUTTON_SIZE));
         Dimension size = saveButton.getPreferredSize();
-        saveButton.setBounds(insets.left, insets.top, size.width, size.height);
+        saveButton.setBounds(insets.left, BUTTON_SIZE + 5 + insets.top, size.width, size.height);
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -52,7 +65,7 @@ public class SaveCoordinatesPanel {
         savedLocCombobox.setVisible(true);
         savedLocCombobox.setPreferredSize(new Dimension(215, BUTTON_SIZE));
         Dimension size = savedLocCombobox.getPreferredSize();
-        savedLocCombobox.setBounds(insets.left, BUTTON_SIZE + 5 + insets.top, size.width, size.height);
+        savedLocCombobox.setBounds(insets.left, 2*(BUTTON_SIZE + 5)+ insets.top, size.width, size.height);
         savedLocCombobox.insertItemAt(null, 0);
         panel.add(savedLocCombobox);
         //savedLocCombobox.addItem(new Point(2,45));
@@ -65,7 +78,7 @@ public class SaveCoordinatesPanel {
         saveButton.setVisible(true);
         saveButton.setPreferredSize(new Dimension(225, BUTTON_SIZE));
         Dimension size = saveButton.getPreferredSize();
-        saveButton.setBounds(insets.left, 2 * BUTTON_SIZE + 10 + insets.top, size.width, size.height);
+        saveButton.setBounds(insets.left, 3 * (BUTTON_SIZE + 5) + insets.top, size.width, size.height);
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -88,7 +101,7 @@ public class SaveCoordinatesPanel {
         cordX.setVisible(true);
         cordX.setPreferredSize(new Dimension(105, BUTTON_SIZE));
         Dimension size = cordX.getPreferredSize();
-        cordX.setBounds(insets.left, 3 * BUTTON_SIZE + 15 + insets.top, size.width, size.height);
+        cordX.setBounds(insets.left, 4 * (BUTTON_SIZE + 5) + insets.top, size.width, size.height);
         cordX.addFocusListener(new FocusListener() {
 
             @Override
@@ -110,7 +123,7 @@ public class SaveCoordinatesPanel {
         cordY.setVisible(true);
         cordY.setPreferredSize(new Dimension(105, BUTTON_SIZE));
         Dimension sizey = cordY.getPreferredSize();
-        cordY.setBounds(insets.left + 110, 3 * BUTTON_SIZE + 15 + insets.top, sizey.width, sizey.height);
+        cordY.setBounds(insets.left + 110, 4 * (BUTTON_SIZE + 5) + insets.top, sizey.width, sizey.height);
         cordY.addFocusListener(new FocusListener() {
 
             @Override
@@ -159,13 +172,14 @@ public class SaveCoordinatesPanel {
         return true;
     }
 
-    //TODO zrobic ten label co pokazuje gdzie jestes; i zrobic ze nie mozna dodac tych samych vals do combosmiecia
 
     public void saveCurrentCoordinates(){
         xToSave = map.getRealX();
         yToSave = map.getRealY();
         Point point = pointString(xToSave, yToSave);
-        savedLocCombobox.addItem(point);
+        if(((DefaultComboBoxModel)savedLocCombobox.getModel()).getIndexOf(point) == -1) {
+            savedLocCombobox.addItem(point);
+        }
     }
 
     public Point pointString(int x, int y){
@@ -176,6 +190,28 @@ public class SaveCoordinatesPanel {
             }
         };
         return pt;
+    }
+    public void refresh(){
+        locLabel.setText("x: " + map.getRealX() + ", y: " + map.getRealY());
+
+    }
+
+    public void run(){
+        try {
+            Thread.sleep(1000);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        while (true){
+            try {
+                Thread.sleep(100);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            refresh();
+        }
     }
 
     public void setMap(Coordinates map) {
