@@ -2,22 +2,37 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 
 public class Exercise3 {
     private MyRandom myRandom = new MyRandom();
+
     private static long COUNT = 32_000_000;
     private static String PATH = "src/main/resources/inputFile.txt";
+    private static long SEED = 2414934980L;
+    private Random random = new Random(SEED);
 
     public static void main(String[] args) {
         Exercise3 exercise3 = new Exercise3();
         exercise3.createFile();
         exercise3.addHeader();
         exercise3.showNumbers();
+//        exercise3.showNumbers2();
     }
 
-    public void showNumbers(){
+    public void showNumbers(){                          //uzywa generatora Lehmer32
         for (long i = 0; i < COUNT; i++) {
             int result = myRandom.nextLehmer32();
+            if(i%10000 == 0) {
+                System.out.println(i);
+            }
+            addIntLine(Integer.toString(result));
+        }
+    }
+
+    public void showNumbers2(){                         //uzywa generatora java.util.Random
+        for (long i = 0; i < COUNT; i++) {
+            int result = random.nextInt();
             if(i%10000 == 0) {
                 System.out.println(i);
             }

@@ -44,6 +44,9 @@ public class Zadanie2 {
     public double chiSquared(HashMap<Long, Integer> combFreq, ArrayList<Double> expectedValues){
         //TODO
         double chi = 0;
+        for (int i = 0; i < combFreq.size(); i++) {
+            chi += Math.pow((combFreq.get((long)i) - expectedValues.get(i)), 2)/expectedValues.get(i);
+        }
         return chi;
     }
 
