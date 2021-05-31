@@ -1,3 +1,5 @@
+package aplikacja;
+
 import javax.swing.*;
 
 public class TerrainManager {

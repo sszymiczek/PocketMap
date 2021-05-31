@@ -1,8 +1,12 @@
+package zadania;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
+import aplikacja.MyRandom;
+
 
 public class Exercise3 {
     private MyRandom myRandom = new MyRandom();
