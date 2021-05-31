@@ -68,7 +68,7 @@ public class SaveCoordinatesPanel extends Thread{
         savedLocCombobox.setBounds(insets.left, 2*(BUTTON_SIZE + 5)+ insets.top, size.width, size.height);
         savedLocCombobox.insertItemAt(null, 0);
         panel.add(savedLocCombobox);
-        //savedLocCombobox.addItem(new Point(2,45));
+
         return panel;
     }
 
@@ -154,8 +154,12 @@ public class SaveCoordinatesPanel extends Thread{
         else if (savedLocCombobox.getSelectedItem() != null && cordX.getText().equals("x") && cordY.getText().equals("y"))
             return (Point) savedLocCombobox.getSelectedItem();
 
-        else
-            JOptionPane.showMessageDialog(null, "insert values first", "alert", JOptionPane.PLAIN_MESSAGE);
+        else {
+            if (savedLocCombobox.getSelectedItem() != null && (!cordX.getText().equals("x") || !cordY.getText().equals("y")))
+                JOptionPane.showMessageDialog(null, "only one option can be chosen", "alert", JOptionPane.PLAIN_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(null, "insert values first", "alert", JOptionPane.PLAIN_MESSAGE);
+        }
         return null;
     }
 
@@ -171,7 +175,6 @@ public class SaveCoordinatesPanel extends Thread{
         }
         return true;
     }
-
 
     public void saveCurrentCoordinates(){
         xToSave = map.getRealX();
@@ -191,6 +194,7 @@ public class SaveCoordinatesPanel extends Thread{
         };
         return pt;
     }
+
     public void refresh(){
         locLabel.setText("x: " + map.getRealX() + ", y: " + map.getRealY());
 

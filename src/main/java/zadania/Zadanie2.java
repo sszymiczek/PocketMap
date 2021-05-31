@@ -1,3 +1,5 @@
+package zadania;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -6,7 +8,7 @@ public class Zadanie2 {
     public static void main(String[] args) {
         Zadanie2 zadanie2 = new Zadanie2();
         int m = 3;
-        String str = "nie jest fajnie";
+        String str = "poker";                                   //INSERT VALUE TO TEST HERE
         String strBinary = zadanie2.strToBinary(str);
         m = zadanie2.checkBlockSize(m, strBinary);
         zadanie2.pokerTest(strBinary, m);
@@ -40,10 +42,8 @@ public class Zadanie2 {
     }
 
     public double chiSquared(HashMap<Long, Integer> combFreq, ArrayList<Double> expectedValues){
+        //TODO
         double chi = 0;
-        for (int i = 0; i < combFreq.size(); i++) {
-            chi += Math.pow((combFreq.get((long)i) - expectedValues.get(i)), 2)/expectedValues.get(i);
-        }
         return chi;
     }
 
@@ -68,14 +68,8 @@ public class Zadanie2 {
     }
 
     public ArrayList<Double> expectedValues(Integer m, Integer k){
+        //TODO
         ArrayList<Double> expectedValues = new ArrayList<>();
-        expectedValues.add(1/Math.pow(2, m) * k);
-        expectedValues.add(m/Math.pow(2, m) * k);
-        for (int i = 2; i <= m-1; i++) {
-            int exp = combinations(m, i);
-            expectedValues.add(exp / Math.pow(2, m) * k);
-        }
-        expectedValues.add(1/Math.pow(2, m) * k);
         return expectedValues;
     }
 
