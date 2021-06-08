@@ -90,7 +90,7 @@ public class MapPanel extends JFrame implements Movable, Coordinates{
     }
 
     private ImageIcon getIcon(int x, int y){
-        return terrainManager.getMapLayoutIcon(x + realX, y + realY);
+        return terrainManager.xyz(x + realX, y + realY);
     }
 
     public void moveUp() {
