@@ -1,5 +1,16 @@
 # PocketMap
 
+This project was created as a form of presentation of some commonly used methods for generating random numbers and dangers they present due to their pseudo-random nature.
+
+Below are presented exercises for the lecture for a Polish study group.
+
+Project created by: 
+
+Anita Jamroży https://github.com/ajamrozy
+
+Szymon Szymiczek https://github.com/sszymiczek
+
+## Exercises
 ZADANIE 1.
 
 Upewnij się że w klasie aplikacja.MapPanel w metodzie getIcon używasz metody która wypełni mapę czterokolorową mozaiką.
